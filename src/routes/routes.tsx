@@ -9,8 +9,9 @@ import EditCategory from '../components/admin/category/EditCategory';
 import AddProduct from '../components/admin/product/AddProduct';
 import ViewProduct from '../components/admin/product/ViewProduct';
 import EditProduct from '../components/admin/product/EditProduct';
-import ViewBrand from '../components/admin/brand/css/ViewBrand';
-import AddBrand from '../components/admin/brand/css/AddBrand';
+import ViewBrand from '../components/admin/brand/ViewBrand.tsx';
+import AddBrand from '../components/admin/brand/AddBrand.tsx';
+import EditBrand from "../components/admin/brand/EditBrand.tsx";
 
 interface RouteConfig {
     path: string;
@@ -65,5 +66,6 @@ const routes: RouteConfig[] = [
     {path:'/edit-product/:id',exact:true, name:'EditProduct', component: EditProduct},
     {path:'/view-brand',exact:true, name:'ViewBrand',component: ViewBrand},
     {path:'/add-brand',exact:true, name:'AddBrand',component: AddBrand},
+  {path:'/edit-brand/:id',exact:true, name:'EditBrand',component: EditBrand},
 ];
 export default routes;

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Image } from 'antd';
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import swal from "sweetalert";
+
 import {message} from "antd";
 import Loading from "../../loading/loading";
 function EditProduct() {
@@ -58,7 +58,7 @@ function EditProduct() {
             }
             else if (res.data.status === 404){
                 message.open({
-                  type:'success',
+                  type:'error',
                   content:res.data.message
                 })
                 navigate('/admin/view-product');

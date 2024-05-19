@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './components/frontend/auth/login';
@@ -7,10 +7,28 @@ import AdminPrivateRoute from './AdminPrivateRoute';
 import axios from 'axios';
 import Page404 from './components/errors/Page404';
 import Page403 from './components/errors/Page403';
+import './assests/frontend/css/about.css';
+import './assests/frontend/css/account.css';
+import './assests/frontend/css/blog.css';
+import './assests/frontend/css/cart.css';
+import './assests/frontend/css/checkout.css'
+import './assests/frontend/css/contact.css';
+import './assests/frontend/css/custom.css'
+import './assests/frontend/css/error_track.css';
+import './assests/frontend/css/faq.css';
+import './assests/frontend/css/home_1.css';
+import './assests/frontend/css/jquery.mmenu.all.css';
+import './assests/frontend/css/leave_review.css';
+import './assests/frontend/css/listing.css';
+import './assests/frontend/css/product_page.css';
+import './assests/frontend/css/style.css';
+import './assests/frontend/css/bootstrap.min.css';
+import './assests/frontend/css/bootstrap.css';
+
 
 import PublicRoute from "./PublicRoute";
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/";
+axios.defaults.baseURL = "http://127.0.0.1:8001/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
 axios.defaults.headers.post['Accept'] = 'application/json';

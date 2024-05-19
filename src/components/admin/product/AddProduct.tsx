@@ -30,7 +30,7 @@ function AddProduct() {
         status: '',
         error_list: {} as { [key: string]: string },
     });
-    
+
     const [picture, setPicture] = useState<{ image: File | null }>({ image: null });
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -56,7 +56,7 @@ function AddProduct() {
 
     const submitProduct = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (!picture.image) {
             message.open({
                 type: 'error',
@@ -183,15 +183,15 @@ function AddProduct() {
                                      <div className="form-group mb-3">
                                     <label htmlFor="slug">Slug</label>
                                     <Input type="text" name="slug" onChange={handleInput} value={productInput.slug} size="large" placeholder="Slug"  />
-                                    
+
                                     <div className="invalid-feedback">
                                         {productInput.error_list && productInput.error_list.slug && <span>{productInput.error_list.slug}</span>}
                                     </div>
                                 </div>
                                     </Col>
                                 </Row>
-                           
-                               
+
+
                                 <div className="form-group mb-3">
                                     <label htmlFor="name">Name</label>
                                     <Input type="text" name="name" onChange={handleInput} size="large" value={productInput.name}  />

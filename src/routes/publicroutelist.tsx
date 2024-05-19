@@ -3,6 +3,7 @@ import About from "../components/frontend/About";
 import Contact from "../components/frontend/Contact";
 import Page404 from "../components/errors/Page404";
 import {FC} from "react";
+import Details from "../components/frontend/Details.tsx";
 
 
 interface RouteConfig {
@@ -17,6 +18,8 @@ const publicrouteslist: RouteConfig[] = [
   { path: '/', exact:true, name: 'Home', component: Home },
   { path: '/about', exact:true, name: 'About', component: About },
   { path: '/contact', exact:true, name: 'Contact', component: Contact },
+  {path:'/details',exact:true, name:'Details', component: Details}
+
 ];
 
 export default publicrouteslist;

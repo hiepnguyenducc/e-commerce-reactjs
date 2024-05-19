@@ -2,18 +2,8 @@
 
 import './css/bootstrap.css';
 import './css/fontawesome.css';
-import './css/style.css';
-import './css/plugins.css';
-import './css/color.css';
-import './css/responsive.css';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css'
-import 'swiper/css/effect-coverflow'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
-import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
-import slide from '../../../public/image.png'
+import shome4 from '../../assests/frontend/img/slides/shome4.jpg'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 interface Product {
@@ -50,440 +40,759 @@ function Home() {
         })
     });
     return (
-        <>
-            <main style={{ backgroundColor: '#fff' }}>
-
-                <section className="bannerBlockHolder position-relative">
-                    <div className="slick-fade">
-                        <Swiper effect={'coverflow'}
-                            grabCursor={true}
-                            centeredSlides={true}
-                            loop={true}
-                            loopAdditionalSlides={2}
-                            slidesPerView={'auto'}
-                            coverflowEffect={{
-                                rotate: 0,
-                                stretch: 0,
-                                depth: 0,
-                                modifier: 0,
-                            }}
-                            pagination={{ el: '.pagination', clickable: true }}
-                            navigation={{ prevEl: '.slick-prev', nextEl: '.slick-next', clickable: true }}
-                            modules={[EffectCoverflow, Pagination, Navigation]}
-
-                        >
-                            <SwiperSlide>
-                                <div>
-                                    <div className="align w-100 d-flex align-items-center bgCover" style={{ backgroundImage: 'url("' + slide + '")' }}>
-                                        <div className="container position-relative holder pt-xl-10">
-                                            <div className="row">
-                                                <div className="col-12 col-xl-7">
-                                                    <div className="txtwrap pr-xl-10">
-                                                        <span className="title d-block text-uppercase fwEbold position-relative pl-2 mb-md-5 mb-sm-3">wellcome to botanical</span>
-                                                        <h1 className="fwEbold position-relative mb-md-7 mb-sm-4">Houseplant <span className="text-break d-block">The Perfect Choice.</span></h1>
-                                                        <p className="mb-md-15 mb-sm-10">Lorem ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                                        <a href="shop.html" className="btn btnTheme btnShop fwEbold text-white md-round py-3 px-4">Shop Now <i className="fas fa-arrow-right ml-2"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div>
-                                    <div className="align w-100 bgCover" style={{ backgroundImage: 'url(http://placehold.it/1920x900)' }}>
-                                        <div className="container position-relative holder pt-14">
-
-                                            <div className="row">
-                                                <div className="col-12 text-center">
-                                                    <div className="txtwrap pr-md-10">
-                                                        <h1 className="fwEbold position-relative mb-0">NUTRIENTS PLANTS</h1>
-                                                        <strong className="year d-block fwEbold mb-3">2019</strong>
-                                                        <span className="sub-title d-block text-uppercase mb-md-12 mb-6">OCCASSIONAL BOUQUET</span>
-                                                        <a href="shop.html" className="btn btnTheme btnShop fwEbold text-white md-round py-3 px-4">Shop Now <i className="fas fa-arrow-right ml-2"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                        </Swiper>
-
-
+      <>
+        <main>
+          <div id="carousel-home-2">
+            <div className="owl-carousel owl-theme">
+              <div className="owl-slide cover" style={{backgroundImage: `url(${shome4})`}}>
+                <div className="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                  <div className="container">
+                    <div className="row justify-content-center justify-content-md-start">
+                      <div className="col-lg-12 static">
+                        <div className="slide-text text-center white">
+                          <h2 className="owl-slide-animated owl-slide-title">Runnig<br/>Collection</h2>
+                          <p className="owl-slide-animated owl-slide-subtitle">
+                            Limited items available at this price
+                          </p>
+                          <div className="owl-slide-animated owl-slide-cta"><a className="btn_1"
+                                                                               href="listing-grid-1-full.html"
+                                                                               role="button">Shop Now</a></div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="slickNavigatorsWrap">
-                        <a href="#" className="slick-prev"><i className="icon-leftarrow"></i></a>
-                        <div className='pagination'></div>
-                        <a href="#" className="slick-next"><i className="icon-rightarrow"></i></a>
-
-                    </div>
-                </section>
-
-                <div className="contactListBlock container overflow-hidden pt-xl-24 pb-xl-12 pt-lg-20 pb-lg-10 pt-md-16 pb-md-4 pt-10 pb-1">
-                    <div className="row">
-                        <div className="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
-
-                            <div className="contactListColumn border bg-lightGray overflow-hidden py-xl-5 py-md-3 py-2 px-xl-6 px-md-3 px-3 d-flex">
-                                <span className="icon icon-van"></span>
-                                <div className="alignLeft pl-2">
-                                    <strong className="headingV fwEbold d-block mb-1">Free shipping order</strong>
-                                    <p className="m-0">On orders over  $100</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
-
-                            <div className="contactListColumn border bg-lightGray overflow-hidden py-xl-5 py-md-3 py-2 px-xl-6 px-md-3 px-3 d-flex">
-                                <span className="icon icon-gift"></span>
-                                <div className="alignLeft pl-2">
-                                    <strong className="headingV fwEbold d-block mb-1">Special gift card</strong>
-                                    <p className="m-0">The perfect gift idea</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
-
-                            <div className="contactListColumn border bg-lightGray overflow-hidden py-xl-5 py-md-3 py-2 px-xl-4 px-md-2 px-3 d-flex">
-                                <span className="icon icon-recycle"></span>
-                                <div className="alignLeft pl-2">
-                                    <strong className="headingV fwEbold d-block mb-1">Return &amp; exchange</strong>
-                                    <p className="m-0">Free return within 3 days</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
-
-                            <div className="contactListColumn border bg-lightGray overflow-hidden py-xl-5 py-md-3 py-2 px-xl-6 px-md-3 px-3 d-flex">
-                                <span className="icon icon-call"></span>
-                                <div className="alignLeft pl-2">
-                                    <strong className="headingV fwEbold d-block mb-1">Support 24 / 7</strong>
-                                    <p className="m-0">Customer support</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-                <div className="container pt-xl-11 pb-xl-12 pt-lg-10 pb-lg-10 pt-md-8 pb-md-8 pt-5 pb-5">
-                    <div className="row">
-                        <div className="col-12">
-
-                            <blockquote className="quotationBlock text-center d-block m-0">
-                                <q className="d-block playfair mb-7">We ship healthy potted plants right to your doorstep. Each plant comes with simple care instructions from our plant experts.</q>
-                                <cite className="d-block">
-                                    <img src="images/signature.png" alt="signature" className="img-fluid mb-6" />
-                                    <span className="d-flex flex-nowrap align-items-center justify-content-center">
-                                        <strong className="fwEbold mr-1">Sarah Jefferson</strong>
-                                        <span className="text-uppercase fwEbold pt-1">- CEO</span>
-                                    </span>
-                                </cite>
-                            </blockquote>
+              </div>
+              <div className="owl-slide cover" style={{backgroundImage: `url(${shome4})`}}>
+                <div className="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                  <div className="container">
+                    <div className="row justify-content-center justify-content-md-start">
+                      <div className="col-lg-12 static">
+                        <div className="slide-text text-center white">
+                          <h2 className="owl-slide-animated owl-slide-title">Easy Fit<br/>Collection</h2>
+                          <p className="owl-slide-animated owl-slide-subtitle">
+                            Limited items available at this price
+                          </p>
+                          <div className="owl-slide-animated owl-slide-cta"><a className="btn_1"
+                                                                               href="listing-grid-1-full.html"
+                                                                               role="button">Shop Now</a></div>
                         </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-
-                <section className="featureSec container overflow-hidden pt-xl-12 pb-xl-9 pt-lg-10 pb-lg-4 pt-md-8 pb-md-2 pt-5">
-                    <div className="row">
-
-                        <header className="col-12 mainHeader mb-4 text-center">
-                            <h1 className="headingIV playfair fwEblod mb-4">New Arrival</h1>
-                            <span className="headerBorder d-block mb-5"><img src="images/hbdr.png" alt="Header Border" className="img-fluid img-bdr" /></span>
-                            <p>There are many variations of passages of lorem ipsum available </p>
-                        </header>
+              </div>
+              <div className="owl-slide cover" style={{backgroundImage: `url(${shome4})`}}>
+                <div className="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                  <div className="container">
+                    <div className="row justify-content-center justify-content-md-start">
+                      <div className="col-lg-12 static">
+                        <div className="slide-text text-center white">
+                          <h2 className="owl-slide-animated owl-slide-title">Casual<br/>Collection</h2>
+                          <p className="owl-slide-animated owl-slide-subtitle">
+                            Limited items available at this price
+                          </p>
+                          <div className="owl-slide-animated owl-slide-cta"><a className="btn_1"
+                                                                               href="listing-grid-1-full.html"
+                                                                               role="button">Shop Now</a></div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="row">
-                        {
-                            viewProduct.map(
-                                (item) => {
-                                    if(item.status===1){
-                                    return null;
-                                }
-                                    return (
-                                        <div className="col-12 col-sm-6 col-lg-3 featureCol position-relative mb-6">
-                                            <div className="border">
-                                                <div className="imgHolder position-relative w-100 overflow-hidden">
-                                                    <img src={`http://127.0.0.1:8000/${item.image}`} alt="image description" className="img-fluid w-100" />
-                                                    <ul className="list-unstyled postHoverLinskList d-flex justify-content-center m-0">
-                                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-heart d-block"></a></li>
-                                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-cart d-block"></a></li>
-                                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-eye d-block"></a></li>
-                                                        <li className="overflow-hidden"><a href="javascript:void(0);" className="icon-arrow d-block"></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div className="text-center py-xl-5 py-sm-4 py-2 px-xl-2 px-1">
-                                                    <span className="title d-block mb-2"><a href="shop-detail.html">{item.name}</a></span>
-                                                    {item.sale===1 ?(
-                                                        <div>
-                                                             <span className="price d-block fwEbold"><del>{item.selling_price}</del> {item.original_price}</span>
-                                                               <span className="hotOffer green fwEbold text-uppercase text-white position-absolute d-block">Sale</span>
-                                                               
-                                                        </div>
-                                                    ):(
-                                                        <span className="price d-block fwEbold"> {item.original_price}</span>
-                                                    )}
-                
-                                                    {item.popular === 1 && <span className={`hotOffer fwEbold text-uppercase text-white position-absolute d-block ${item.sale === 1 ? 'ml-8':''}`}>Hot</span>}
-                                                  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                }
-                            )
-                        }
-                    </div>
-                </section>
-
-                <div className="categorySecBlock overflow-hidden pt-xl-9 pb-xl-6 px-xl-17 px-0 pt-lg-10 pb-lg-4 pt-md-8 pb-md-2 pt-5">
-
-                    <div className="masonryHolder">
-
-                        <div className="grid-item mb-6 px-3">
-                            <div className="itemCol">
-                                <div className="position-relative">
-                                    <img src="http://placehold.it/410x845" alt="image description" className="img-fluid w-100" />
-                                    <div className="hoverTextBlock position-absolute">
-                                        <h2 className="headingIV playfair fwEbold mb-3"><a href="javascript:void(0);">Cactus Plant</a></h2>
-                                        <span className="txt d-block">( 56 item )</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="grid-item mb-6 px-3">
-                            <div className="itemCol">
-                                <div className="position-relative">
-                                    <img src="http://placehold.it/410x410" alt="image description" className="img-fluid w-100" />
-                                    <div className="hoverTextBlock position-absolute">
-                                        <h2 className="headingIV playfair fwEbold mb-3"><a href="javascript:void(0);">Indoor Plant</a></h2>
-                                        <span className="txt d-block">( 36 item )</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="grid-item grid-item2 mb-6 px-3">
-                            <div className="itemCol">
-                                <div className="position-relative">
-                                    <img src="http://placehold.it/845x410" alt="image description" className="img-fluid w-100" />
-                                    <div className="hoverTextBlock position-absolute">
-                                        <h2 className="headingIV playfair fwEbold mb-3"><a href="javascript:void(0);">Tropical Plant</a></h2>
-                                        <span className="txt d-block">( 21 item )</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="grid-item grid-item2 mb-6 px-3">
-                            <div className="itemCol">
-                                <div className="position-relative">
-                                    <img src="http://placehold.it/845x410" alt="image description" className="img-fluid w-100" />
-                                    <div className="hoverTextBlock position-absolute">
-                                        <h2 className="headingIV playfair fwEbold mb-3"><a href="javascript:void(0);">Floor Plant</a></h2>
-                                        <span className="txt d-block">( 18 item )</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="grid-item mb-6 px-3">
-                            <div className="itemCol">
-                                <div className="position-relative">
-                                    <img src="http://placehold.it/410x410" alt="image description" className="img-fluid w-100" />
-                                    <div className="hoverTextBlock position-absolute">
-                                        <h2 className="headingIV playfair fwEbold mb-3"><a href="javascript:void(0);">Table Plant</a></h2>
-                                        <span className="txt d-block">( 36 item )</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-
-                <section className="featureSec container overflow-hidden pt-xl-11 pb-xl-18 pt-lg-10 pb-lg-20 pt-md-8 pb-md-16 pt-5 pb-5">
-                    <div className="row">
-
-                        <header className="col-12 mainHeader mb-4 text-center">
-                            <h1 className="headingIV playfair fwEblod mb-4">Best seller</h1>
-                            <span className="headerBorder d-block mb-5"><img src="images/hbdr.png" alt="Header Border" className="img-fluid img-bdr" /></span>
-                            <p>There are many variations of passages of lorem ipsum available </p>
-                        </header>
+              </div>
+              <div className="owl-slide cover" style={{backgroundImage: `url(${shome4})`}}>
+                <div className="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(255, 255, 255, 0.5)">
+                  <div className="container">
+                    <div className="row justify-content-center justify-content-md-start">
+                      <div className="col-lg-12 static">
+                        <div className="slide-text text-center black">
+                          <h2 className="owl-slide-animated owl-slide-title">Attack Air<br/>Monarch</h2>
+                          <p className="owl-slide-animated owl-slide-subtitle">
+                            Lightweight cushioning and durable support with a Phylon midsole
+                          </p>
+                          <div className="owl-slide-animated owl-slide-cta"><a className="btn_1"
+                                                                               href="listing-grid-1-full.html"
+                                                                               role="button">Shop Now</a></div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="row">
-
-                        <div className="col-12 col-sm-6 col-lg-3 featureCol position-relative mb-6">
-                            <div className="border">
-                                <div className="imgHolder position-relative w-100 overflow-hidden">
-                                    <img src="http://placehold.it/270x300" alt="image description" className="img-fluid w-100" />
-                                    <ul className="list-unstyled postHoverLinskList d-flex justify-content-center m-0">
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-heart d-block"></a></li>
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-cart d-block"></a></li>
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-eye d-block"></a></li>
-                                        <li className="overflow-hidden"><a href="javascript:void(0);" className="icon-arrow d-block"></a></li>
-                                    </ul>
-                                </div>
-                                <div className="text-center py-xl-5 py-sm-4 py-2 px-xl-2 px-1">
-                                    <span className="title d-block mb-2"><a href="shop-detail.html">Pellentesque aliquet</a></span>
-                                    <span className="price d-block fwEbold mb-1"><del>80.50 $</del> 68.00 $</span>
-                                    <span className="hotOffer fwEbold text-uppercase text-white position-absolute d-block">HOT</span>
-                                    <span className="hotOffer green fwEbold text-uppercase text-white position-absolute d-block">Sale</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-12 col-sm-6 col-lg-3 featureCol mb-6">
-                            <div className="border">
-                                <div className="imgHolder position-relative w-100 overflow-hidden">
-                                    <img src="http://placehold.it/270x300" alt="image description" className="img-fluid w-100" />
-                                    <ul className="list-unstyled postHoverLinskList d-flex justify-content-center m-0">
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-heart d-block"></a></li>
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-cart d-block"></a></li>
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-eye d-block"></a></li>
-                                        <li className="overflow-hidden"><a href="javascript:void(0);" className="icon-arrow d-block"></a></li>
-                                    </ul>
-                                </div>
-                                <div className="text-center py-xl-5 py-sm-4 py-2 px-xl-2 px-1">
-                                    <span className="title d-block mb-2"><a href="shop-detail.html">Pellentesque aliquet</a></span>
-                                    <span className="price d-block fwEbold mb-1">58.00 $</span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div className="col-12 col-sm-6 col-lg-3 featureCol position-relative mb-6">
-                            <div className="border">
-                                <div className="imgHolder position-relative w-100 overflow-hidden">
-                                    <img src="http://placehold.it/270x300" alt="image description" className="img-fluid w-100" />
-                                    <ul className="list-unstyled postHoverLinskList d-flex justify-content-center m-0">
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-heart d-block"></a></li>
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-cart d-block"></a></li>
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-eye d-block"></a></li>
-                                        <li className="overflow-hidden"><a href="javascript:void(0);" className="icon-arrow d-block"></a></li>
-                                    </ul>
-                                </div>
-                                <div className="text-center py-xl-5 py-sm-4 py-2 px-xl-2 px-1">
-                                    <span className="title d-block mb-2"><a href="shop-detail.html">Pellentesque aliquet</a></span>
-                                    <span className="price d-block fwEbold mb-1">60.00 $</span>
-                                    <span className="hotOffer fwEbold text-uppercase text-white position-absolute d-block">Hot</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-12 col-sm-6 col-lg-3 featureCol position-relative mb-6">
-                            <div className="border">
-                                <div className="imgHolder position-relative w-100 overflow-hidden">
-                                    <img src="http://placehold.it/270x300" alt="image description" className="img-fluid w-100" />
-                                    <ul className="list-unstyled postHoverLinskList d-flex justify-content-center m-0">
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-heart d-block"></a></li>
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-cart d-block"></a></li>
-                                        <li className="mr-2 overflow-hidden"><a href="javascript:void(0);" className="icon-eye d-block"></a></li>
-                                        <li className="overflow-hidden"><a href="javascript:void(0);" className="icon-arrow d-block"></a></li>
-                                    </ul>
-                                </div>
-                                <div className="text-center py-xl-5 py-sm-4 py-2 px-xl-2 px-1">
-                                    <span className="title d-block mb-2"><a href="shop-detail.html">Pellentesque aliquet</a></span>
-                                    <span className="price d-block fwEbold mb-1"><del>80.50 $</del>65.00 $</span>
-                                    <span className="hotOffer green fwEbold text-uppercase text-white position-absolute d-block">Sale</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <div className="container-fluid px-xl-20 px-lg-10">
-
-                    <section className="testimonailBlock bgCover py-xl-24 py-lg-20 py-md-16 py-10" style="background-image: url(http://placehold.it/1720x560)" style={{ backgroundImage: 'url(http://placehold.it/1720x560)' }}>
-                        <header className="col-12 mainHeader mb-9 text-center">
-                            <h1 className="headingIV playfair fwEblod">What Say Client</h1>
-                        </header>
-                        <div className="container">
-
-                            <div className="testimonailSlider overflow-hidden">
-                                <div>
-                                    <div className="slide text-center mb-7">
-                                        <span className="icon-qoute mb-2 d-block"></span>
-                                        <p className="mb-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com- modo consequat. </p>
-                                        <strong className="title d-block fwEbold mb-1">Sarah Jefferson</strong>
-                                        <span className="desination">BTV - Designer</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="slide text-center mb-7">
-                                        <span className="icon-qoute mb-2 d-block"></span>
-                                        <p className="mb-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com- modo consequat. </p>
-                                        <strong className="title d-block fwEbold mb-1">Sarah Jefferson</strong>
-                                        <span className="desination">BTV - Designer</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="slide text-center mb-7">
-                                        <span className="icon-qoute mb-2 d-block"></span>
-                                        <p className="mb-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com- modo consequat. </p>
-                                        <strong className="title d-block fwEbold mb-1">Sarah Jefferson</strong>
-                                        <span className="desination">BTV - Designer</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div id="icon_drag_mobile"></div>
+          </div>
 
-                <section className="latestSec container overflow-hidden pt-xl-23 pb-xl-17 pt-lg-20 pb-lg-4 pt-md-16 pb-md-2 pt-10">
-                    <div className="row">
-
-                        <header className="col-12 mainHeader mb-4 text-center">
-                            <h1 className="headingIV playfair fwEblod mb-4">Latest News</h1>
-                            <span className="headerBorder d-block mb-5"><img src="images/hbdr.png" alt="Header Border" className="img-fluid img-bdr" /></span>
-                            <p>There are many variations of passages of lorem ipsum available </p>
-                        </header>
+          <div className="feat">
+            <div className="container">
+              <ul>
+                <li>
+                  <div className="box">
+                    <i className="ti-gift"></i>
+                    <div className="justify-content-center">
+                      <h3>Free Shipping</h3>
+                      <p>For all oders over $99</p>
                     </div>
-                    <div className="row">
-                        <div className="col-12 col-sm-6 col-lg-4">
-
-                            <div className="newsPostColumn text-center px-2 pb-6 mb-6">
-                                <div className="imgHolder position-relative mb-6">
-                                    <a href="blog-detail.html">
-                                        <img src="http://placehold.it/370x250" alt="image description" className="img-fluid w-100" />
-                                        <time className="time text-uppercase position-absolute py-2 px-1" dateTime="2019-02-03 20:00"> <strong className="fwEbold d-block">20</strong> Sep</time>
-                                    </a>
-                                </div>
-                                <span className="postBy d-block mb-3">Post by: <a href="blog-detail.html">Jane doe</a></span>
-                                <h2 className="headingV fwEbold mb-2"><a href="blog-detail.html">Aptent taciti soci litora cianpen</a></h2>
-                                <p className="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...</p>
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-6 col-lg-4">
-
-                            <div className="newsPostColumn text-center px-2 pb-6 mb-6">
-                                <div className="imgHolder position-relative mb-6">
-                                    <a href="blog-detail.html">
-                                        <img src="http://placehold.it/370x250" alt="image description" className="img-fluid w-100" />
-                                        <time className="time text-uppercase position-absolute py-2 px-1" dateTime="2019-02-03 20:00"> <strong className="fwEbold d-block">18</strong> Sep</time>
-                                    </a>
-                                </div>
-                                <span className="postBy d-block mb-3">Post by: <a href="blog-detail.html">Jane doe</a></span>
-                                <h2 className="headingV fwEbold mb-2"><a href="blog-detail.html">Aptent taciti soci litora cianpen</a></h2>
-                                <p className="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...</p>
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-6 col-lg-4">
-
-                            <div className="newsPostColumn text-center px-2 pb-6 mb-6">
-                                <div className="imgHolder position-relative mb-6">
-                                    <a href="blog-detail.html">
-                                        <img src="http://placehold.it/370x250" alt="image description" className="img-fluid w-100" />
-                                        <time className="time text-uppercase position-absolute py-2 px-1" dateTime="2019-02-03 20:00"> <strong className="fwEbold d-block">21</strong> Sep</time>
-                                    </a>
-                                </div>
-                                <span className="postBy d-block mb-3">Post by: <a href="blog-detail.html">Jane doe</a></span>
-                                <h2 className="headingV fwEbold mb-2"><a href="blog-detail.html">Aptent taciti soci litora cianpen</a></h2>
-                                <p className="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...</p>
-                            </div>
-                        </div>
+                  </div>
+                </li>
+                <li>
+                  <div className="box">
+                    <i className="ti-wallet"></i>
+                    <div className="justify-content-center">
+                      <h3>Secure Payment</h3>
+                      <p>100% secure payment</p>
                     </div>
-                </section>
-            </main>
-        </>
+                  </div>
+                </li>
+                <li>
+                  <div className="box">
+                    <i className="ti-headphone-alt"></i>
+                    <div className="justify-content-center">
+                      <h3>24/7 Support</h3>
+                      <p>Online top support</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="container margin_60_35">
+            <div className="row small-gutters categories_grid">
+              <div className="col-sm-12 col-md-6">
+                <a href="listing-grid-1-full.html">
+                  <img src="img/img_cat_home_1_placeholder.png" data-src="img/img_cat_home_1.jpg" alt=""
+                       className="img-fluid lazy"/>
+                  <div className="wrapper">
+                    <h2>Life Style</h2>
+                    <p>115 Products</p>
+                  </div>
+                </a>
+              </div>
+              <div className="col-sm-12 col-md-6">
+                <div className="row small-gutters mt-md-0 mt-sm-2">
+                  <div className="col-sm-6">
+                    <a href="listing-grid-1-full.html">
+                      <img src="img/img_cat_home_2_placeholder.png" data-src="img/img_cat_home_2.jpg" alt=""
+                           className="img-fluid lazy"/>
+                      <div className="wrapper">
+                        <h2>Running</h2>
+                        <p>150 Products</p>
+                      </div>
+                    </a>
+                  </div>
+                  <div className="col-sm-6">
+                    <a href="listing-grid-1-full.html">
+                      <img src="img/img_cat_home_2_placeholder.png" data-src="img/img_cat_home_3.jpg" alt=""
+                           className="img-fluid lazy"/>
+                      <div className="wrapper">
+                        <h2>Football</h2>
+                        <p>90 Products</p>
+                      </div>
+                    </a>
+                  </div>
+                  <div className="col-sm-12 mt-sm-2">
+                    <a href="listing-grid-1-full.html">
+                      <img src="img/img_cat_home_4_placeholder.png" data-src="img/img_cat_home_4.jpg" alt=""
+                           className="img-fluid lazy"/>
+                      <div className="wrapper">
+                        <h2>Training</h2>
+                        <p>120 Products</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <hr className="mb-0"/>
+          <div className="container margin_60_35">
+            <div className="main_title">
+              <h2>Top Selling</h2>
+              <span>Products</span>
+              <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+            </div>
+
+
+            <div className="row small-gutters">
+              {
+                viewProduct.map(item => {
+                  const discountPercentage = ((item.original_price - item.selling_price) / item.original_price) * 100;
+                  return (
+                    <div className="col-6 col-md-4 col-xl-3" key={item.id}>
+                      <div className="grid_item">
+                        <figure>
+                          {item.sale === 1 &&(
+                            <span className="ribbon off">{`-${discountPercentage.toFixed(0)}%`}</span>
+                          )
+                          }
+
+                          <a href="product-detail-1.html">
+                            <img className="img-fluid lazy" src={`http://127.0.0.1:8001/${item.image}`} data-src="img/products/shoes/1.jpg" alt=""/>
+                            <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg" data-src="img/products/shoes/1_b.jpg" alt=""/>
+                          </a>
+                          <div data-countdown="2019/05/15" className="countdown">ddd</div>
+                        </figure>
+                        <div className="rating">
+                          <i className="icon-star voted"></i>
+                          <i className="icon-star voted"></i>
+                          <i className="icon-star voted"></i>
+                          <i className="icon-star voted"></i>
+                          <i className="icon-star"></i>
+                        </div>
+                        <a href="product-detail-1.html">
+                          <h3>{item.name}</h3>
+                        </a>
+                        <div className="price_box">
+                          {item.sale === 1 ? (
+                            <>
+                              <span className="new_price">${item.selling_price}</span>
+                              <span className="old_price">${item.original_price}</span>
+                            </>
+                          ) : (
+                            <span className="new_price">${item.original_price}</span>
+                          )}
+
+                        </div>
+                        <ul>
+                          <li>
+                            <a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favorites">
+                              <i className="ti-heart"></i><span>Add to favorites</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to compare">
+                              <i className="ti-control-shuffle"></i><span>Add to compare</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to cart">
+                              <i className="ti-shopping-cart"></i><span>Add to cart</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  );
+                })
+              }
+
+
+              <div className="col-6 col-md-4 col-xl-3">
+                <div className="grid_item">
+                  <span className="ribbon off">-30%</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/2.jpg" alt=""/>
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/2_b.jpg" alt=""/>
+                    </a>
+                    <div data-countdown="2019/05/10" className="countdown"></div>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Armor Okwahn II</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$90.00</span>
+                    <span className="old_price">$170.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-6 col-md-4 col-xl-3">
+                <div className="grid_item">
+                  <span className="ribbon off">-50%</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/3.jpg" alt=""/>
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/3_b.jpg" alt=""/>
+                    </a>
+                    <div data-countdown="2019/05/21" className="countdown"></div>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Armor Air Wildwood ACG</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$75.00</span>
+                    <span className="old_price">$155.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-6 col-md-4 col-xl-3">
+                <div className="grid_item">
+                  <span className="ribbon new">New</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/4.jpg" alt=""/>
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/4_b.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Armor ACG React Terra</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$110.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-6 col-md-4 col-xl-3">
+                <div className="grid_item">
+                  <span className="ribbon new">New</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/5.jpg" alt=""/>
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/5_b.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Armor Air Zoom Alpha</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$140.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-6 col-md-4 col-xl-3">
+                <div className="grid_item">
+                  <span className="ribbon new">New</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/6.jpg" alt=""/>
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/6_b.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Armor Air Alpha</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$130.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-6 col-md-4 col-xl-3">
+                <div className="grid_item">
+                  <span className="ribbon hot">Hot</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/7.jpg" alt=""/>
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/7_b.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Armor Air Max 98</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$115.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-6 col-md-4 col-xl-3">
+                <div className="grid_item">
+                  <span className="ribbon hot">Hot</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/8.jpg" alt=""/>
+                      <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/8_b.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Armor Air Max 720</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$120.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="featured lazy" data-bg="url(img/featured_home.jpg)">
+            <div className="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+              <div className="container margin_60">
+                <div className="row justify-content-center justify-content-md-start">
+                  <div className="col-lg-6 wow" data-wow-offset="150">
+                    <h3>Armor<br/>Air Color 720</h3>
+                    <p>Lightweight cushioning and durable support with a Phylon midsole</p>
+                    <div className="feat_text_block">
+                      <div className="price_box">
+                        <span className="new_price">$90.00</span>
+                        <span className="old_price">$170.00</span>
+                      </div>
+                      <a className="btn_1" href="listing-grid-1-full.html" role="button">Shop Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="container margin_60_35">
+            <div className="main_title">
+              <h2>Featured</h2>
+              <span>Products</span>
+              <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+            </div>
+            <div className="owl-carousel owl-theme products_carousel">
+              <div className="item">
+                <div className="grid_item">
+                  <span className="ribbon new">New</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/4.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>ACG React Terra</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$110.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="item">
+                <div className="grid_item">
+                  <span className="ribbon new">New</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/5.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Air Zoom Alpha</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$140.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="item">
+                <div className="grid_item">
+                  <span className="ribbon hot">Hot</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/8.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Air Color 720</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$120.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="item">
+                <div className="grid_item">
+                  <span className="ribbon off">-30%</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/2.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Okwahn II</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$90.00</span>
+                    <span className="old_price">$170.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="item">
+                <div className="grid_item">
+                  <span className="ribbon off">-50%</span>
+                  <figure>
+                    <a href="product-detail-1.html">
+                      <img className="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
+                           data-src="img/products/shoes/3.jpg" alt=""/>
+                    </a>
+                  </figure>
+                  <div className="rating"><i className="icon-star voted"></i><i className="icon-star voted"></i><i
+                    className="icon-star voted"></i><i className="icon-star voted"></i><i className="icon-star"></i>
+                  </div>
+                  <a href="product-detail-1.html">
+                    <h3>Air Wildwood ACG</h3>
+                  </a>
+                  <div className="price_box">
+                    <span className="new_price">$75.00</span>
+                    <span className="old_price">$155.00</span>
+                  </div>
+                  <ul>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to favorites"><i className="ti-heart"></i><span>Add to favorites</span></a></li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to compare"><i className="ti-control-shuffle"></i><span>Add to compare</span></a>
+                    </li>
+                    <li><a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
+                           title="Add to cart"><i className="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg_gray">
+            <div className="container margin_30">
+              <div id="brands" className="owl-carousel owl-theme">
+                <div className="item">
+                  <a href="#0"><img src="img/brands/placeholder_brands.png" data-src="img/brands/logo_1.png" alt=""
+                                    className="owl-lazy"/></a>
+                </div>
+                <div className="item">
+                  <a href="#0"><img src="img/brands/placeholder_brands.png" data-src="img/brands/logo_2.png" alt=""
+                                    className="owl-lazy"/></a>
+                </div>
+                <div className="item">
+                  <a href="#0"><img src="img/brands/placeholder_brands.png" data-src="img/brands/logo_3.png" alt=""
+                                    className="owl-lazy"/></a>
+                </div>
+                <div className="item">
+                  <a href="#0"><img src="img/brands/placeholder_brands.png" data-src="img/brands/logo_4.png" alt=""
+                                    className="owl-lazy"/></a>
+                </div>
+                <div className="item">
+                  <a href="#0"><img src="img/brands/placeholder_brands.png" data-src="img/brands/logo_5.png" alt=""
+                                    className="owl-lazy"/></a>
+                </div>
+                <div className="item">
+                  <a href="#0"><img src="img/brands/placeholder_brands.png" data-src="img/brands/logo_6.png" alt=""
+                                    className="owl-lazy"/></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="container margin_60_35">
+            <div className="main_title">
+              <h2>Latest News</h2>
+              <span>Blog</span>
+              <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+            </div>
+            <div className="row">
+              <div className="col-lg-6">
+                <a className="box_news" href="blog.html">
+                  <figure>
+                    <img src="img/blog-thumb-placeholder.jpg" data-src="img/blog-thumb-1.jpg" alt="" width="400"
+                         height="266" className="lazy"/>
+                    <figcaption><strong>28</strong>Dec</figcaption>
+                  </figure>
+                  <ul>
+                    <li>by Mark Twain</li>
+                    <li>20.11.2017</li>
+                  </ul>
+                  <h4>Pri oportere scribentur eu</h4>
+                  <p>Cu eum alia elit, usu in eius appareat, deleniti sapientem honestatis eos ex. In ius esse ullum
+                    vidisse....</p>
+                </a>
+              </div>
+              <div className="col-lg-6">
+                <a className="box_news" href="blog.html">
+                  <figure>
+                    <img src="img/blog-thumb-placeholder.jpg" data-src="img/blog-thumb-2.jpg" alt="" width="400"
+                         height="266" className="lazy"/>
+                    <figcaption><strong>28</strong>Dec</figcaption>
+                  </figure>
+                  <ul>
+                    <li>By Jhon Doe</li>
+                    <li>20.11.2017</li>
+                  </ul>
+                  <h4>Duo eius postea suscipit ad</h4>
+                  <p>Cu eum alia elit, usu in eius appareat, deleniti sapientem honestatis eos ex. In ius esse ullum
+                    vidisse....</p>
+                </a>
+              </div>
+              <div className="col-lg-6">
+                <a className="box_news" href="blog.html">
+                  <figure>
+                    <img src="img/blog-thumb-placeholder.jpg" data-src="img/blog-thumb-3.jpg" alt="" width="400"
+                         height="266" className="lazy"/>
+                    <figcaption><strong>28</strong>Dec</figcaption>
+                  </figure>
+                  <ul>
+                    <li>By Luca Robinson</li>
+                    <li>20.11.2017</li>
+                  </ul>
+                  <h4>Elitr mandamus cu has</h4>
+                  <p>Cu eum alia elit, usu in eius appareat, deleniti sapientem honestatis eos ex. In ius esse ullum
+                    vidisse....</p>
+                </a>
+              </div>
+              <div className="col-lg-6">
+                <a className="box_news" href="blog.html">
+                  <figure>
+                    <img src="img/blog-thumb-placeholder.jpg" data-src="img/blog-thumb-4.jpg" alt="" width="400"
+                         height="266" className="lazy"/>
+                    <figcaption><strong>28</strong>Dec</figcaption>
+                  </figure>
+                  <ul>
+                    <li>By Paula Rodrigez</li>
+                    <li>20.11.2017</li>
+                  </ul>
+                  <h4>Id est adhuc ignota delenit</h4>
+                  <p>Cu eum alia elit, usu in eius appareat, deleniti sapientem honestatis eos ex. In ius esse ullum
+                    vidisse....</p>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </main>
+        <script src='../../assests/frontend/js/common_scripts.min.js'></script>
+        <script src="../../assests/frontend/js/main.js"></script>
+        <script src="../../assests/frontend/js/carousel-home-2.js"></script>
+      </>
     )
 }
+
 export default Home;
