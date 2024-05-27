@@ -27,6 +27,7 @@ function Category() {
     slug: '',
     name: '',
     description: '',
+    collection_id:'',
     status: '',
     meta_title: '',
     meta_keyword: '',
@@ -53,6 +54,7 @@ function Category() {
       slug: categoryInput.slug,
       name: categoryInput.name,
       description: categoryInput.description,
+      collection_id:categoryInput.collection_id,
       status: categoryInput.status,
       meta_title: categoryInput.meta_title,
       meta_keyword: categoryInput.meta_keyword,
@@ -93,11 +95,14 @@ function Category() {
 
         </div>
         <h4 className="mt-4">
-
           Add Category
           <Link to="/admin/view-category" className="btn btn-primary btn-sm float-end">View Category</Link>
         </h4>
         <form action="" onSubmit={submitCategory} id="category_form" className="needs-validation g-3" noValidate>
+
+          <div className="form-group mb-3">
+            <Input type="text" name="collection_id" onChange={handleInput} value={categoryInput.collection_id}></Input>
+          </div>
 
           <div className="form-group mb-3">
 

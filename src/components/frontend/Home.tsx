@@ -3,9 +3,10 @@
 import './css/bootstrap.css';
 import './css/fontawesome.css';
 
-import shome4 from '../../assests/frontend/img/slides/shome4.jpg'
+import shome4 from '../../../public/shome4.jpg'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 interface Product {
     id: number;
     category_id: {
@@ -38,7 +39,8 @@ function Home() {
                 setLoading(false);
             }
         })
-    });
+    },[]);
+
     return (
       <>
         <main>
@@ -221,20 +223,51 @@ function Home() {
               {
                 viewProduct.map(item => {
                   const discountPercentage = ((item.original_price - item.selling_price) / item.original_price) * 100;
+                  const creationDate = new Date(item.created_at);
+                  const today = new Date();
+                  const timeDifference = today.getTime() - creationDate.getTime();
+                  const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+                  const isNew = daysDifference <= 1;
+                  let countdownElement;
+                  if (item.sale === 1) {
+                    // Convert sale start and end dates to Date objects
+                    const saleStartDate = new Date(item.sale_start_date);
+                    const saleEndDate = new Date(item.sale_end_date);
+                    const saleTimeDifference = saleEndDate.getTime() - today.getTime();
+                    if (saleTimeDifference > 0) {
+                      // Convert milliseconds to hours, minutes, and seconds
+                      let seconds = Math.floor((saleTimeDifference / 1000) % 60);
+                      let minutes = Math.floor((saleTimeDifference / (1000 * 60)) % 60);
+                      let hours = Math.floor((saleTimeDifference / (1000 * 60 * 60)) % 24);
+
+                      let countdownString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                      countdownElement = <div data-countdown={saleEndDate} className="countdown">{countdownString}</div>;
+                    } else {
+                      countdownElement = null
+                    }
+                  } else {
+                    countdownElement = null
+                  }
                   return (
                     <div className="col-6 col-md-4 col-xl-3" key={item.id}>
                       <div className="grid_item">
                         <figure>
-                          {item.sale === 1 &&(
-                            <span className="ribbon off">{`-${discountPercentage.toFixed(0)}%`}</span>
+                          {item.sale === 1 && (
+                            <span className={`ribbon off ${isNew ? 'ml-10' : ''}`}>{`-${discountPercentage.toFixed(0)}%`}</span>
                           )
                           }
+                          {isNew && (
+                            <span className="ribbon new">New</span>
+                          )}
+                          <Link to={item.slug}>
+                            <img className="img-fluid lazy" src={`http://127.0.0.1:8001/${item.image}`}
+                                 data-src="img/products/shoes/1.jpg" alt=""/>
+                            <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg"
+                                 data-src="img/products/shoes/1_b.jpg" alt=""/>
+                          </Link>
 
-                          <a href="product-detail-1.html">
-                            <img className="img-fluid lazy" src={`http://127.0.0.1:8001/${item.image}`} data-src="img/products/shoes/1.jpg" alt=""/>
-                            <img className="img-fluid lazy" src="img/products/product_placeholder_square_medium.jpg" data-src="img/products/shoes/1_b.jpg" alt=""/>
-                          </a>
-                          <div data-countdown="2019/05/15" className="countdown">ddd</div>
+                          {countdownElement}
                         </figure>
                         <div className="rating">
                           <i className="icon-star voted"></i>
@@ -243,9 +276,9 @@ function Home() {
                           <i className="icon-star voted"></i>
                           <i className="icon-star"></i>
                         </div>
-                        <a href="product-detail-1.html">
+                        <Link to={item.slug}>
                           <h3>{item.name}</h3>
-                        </a>
+                        </Link>
                         <div className="price_box">
                           {item.sale === 1 ? (
                             <>

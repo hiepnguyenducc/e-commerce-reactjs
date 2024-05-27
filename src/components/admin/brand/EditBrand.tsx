@@ -29,6 +29,7 @@ function EditBrand(){
       console.log({image:e.target.files[0]})
     }
   }
+
   let {id}=useParams();
   const brand_id = id;
   useEffect(() => {

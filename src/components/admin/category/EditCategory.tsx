@@ -17,10 +17,12 @@ function EditCategory() {
         axios.get(`/api/edit-category/${id}`).then(res=>{
             if(res.data.status === 200){
                 setCategory(res.data.category);
-
             }
             else if(res.data.status === 404){
-                swal("Error", res.data.message,"error");
+              message.open({
+                type:'error',
+                content:res.data.message
+              })
                 navigate('/admin/view-category')
             }
             setLoading(false);

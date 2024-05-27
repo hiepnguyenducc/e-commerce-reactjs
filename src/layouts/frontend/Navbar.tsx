@@ -1,14 +1,14 @@
 import axios from "axios";
 import swal from "sweetalert";
-import { Link as RouterLink } from "react-router-dom";
+import {Link, Link as RouterLink} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import '../../assests/frontend/css/style.css';
-import '../../assests/frontend/css/bootstrap.min.css';
-import '../../assests/frontend/css/bootstrap.css';
+import '../../assests/frontend/css/style.css'
 
 import logo from '../../../public/h.jpg';
+import {useEffect, useState} from "react";
 
 function Navbar() {
+  const [collection, setCollection] = useState([]);
   const history = useNavigate();
   const logoutSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +24,13 @@ function Navbar() {
       }
     });
   }
+  useEffect(() => {
+    axios.get('api/getCollection').then(res => {
+      if (res.data.status === 200) {
+        setCollection(res.data.collection);
+      }
+    });
+  }, []);
   var AuthButtons = '';
   if (!localStorage.getItem('auth_token')) {
     AuthButtons = (
@@ -123,12 +130,14 @@ function Navbar() {
                     </div>
                     <ul>
                       <li className="submenu">
-                        <a href="javascript:void(0);" className="show-submenu">Home</a>
+                        <a href="javascript:void(0);" className="show-submenu">Collections</a>
                         <ul>
-                          <li><a href="index.html">Slider</a></li>
-                          <li><a href="index-2.html">Video Background</a></li>
-                          <li><a href="index-3.html">Vertical Slider</a></li>
-                          <li><a href="index-4.html">GDPR Cookie Bar</a></li>
+                          {collection.map((item)=>{
+                            return (
+                              <li><Link to={`/collections/${item.id}`}>{item.name}</Link></li>
+                            )
+                          })
+                          }
                         </ul>
                       </li>
                       <li className="megamenu submenu">
@@ -214,8 +223,8 @@ function Navbar() {
 
                 </nav>
                 <div className="col-xl-3 col-lg-2 d-lg-flex align-items-center justify-content-end text-end">
-                  <a className="phone_top" href="tel://9438843343"><strong><span>Need Help?</span>+94
-                    423-23-221</strong></a>
+                  <a className="phone_top" href="tel://0949985409"><strong><span>Need Help?</span>+84
+                    949-985-409</strong></a>
                 </div>
               </div>
             </div>
@@ -240,7 +249,7 @@ function Navbar() {
 									</span>
                         <div id="menu">
                           <ul>
-                            <li><span><a href="#0">Collections</a></span>
+                            <li><span><a href="#0" >Collections</a></span>
                               <ul>
                                 <li><a href="listing-grid-1-full.html">Trending</a></li>
                                 <li><a href="listing-grid-2-full.html">Life style</a></li>
@@ -303,11 +312,13 @@ function Navbar() {
                   </div>
                 </div>
                 <div className="col-xl-3 col-lg-2 col-md-3">
+
                   <ul className="top_tools">
+
                     <li>
                       <div className="dropdown dropdown-cart">
-                        <a href="cart.html" className="cart_bt"><strong>2</strong></a>
-                        <div className="dropdown-menu">
+                        <Link to="/cart" className="cart_bt submenu"><strong>2</strong></Link>
+                        <div className="dropdown-menu show-submenu">
                           <ul>
                             <li>
                               <a href="product-detail-1.html">

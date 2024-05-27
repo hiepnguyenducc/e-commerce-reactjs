@@ -1,17 +1,21 @@
 import { FC } from 'react';
-
 import Dashboard from '../components/admin/Dashboard';
 import Profile from '../components/admin/Profile';
 import Category from '../components/admin/category/Category';
 import ViewCategory from '../components/admin/category/ViewCotegory';
 import EditCategory from '../components/admin/category/EditCategory';
-
 import AddProduct from '../components/admin/product/AddProduct';
 import ViewProduct from '../components/admin/product/ViewProduct';
 import EditProduct from '../components/admin/product/EditProduct';
 import ViewBrand from '../components/admin/brand/ViewBrand.tsx';
 import AddBrand from '../components/admin/brand/AddBrand.tsx';
 import EditBrand from "../components/admin/brand/EditBrand.tsx";
+import ViewColor from "../components/admin/color/ViewColor.tsx";
+import AddColor from "../components/admin/color/AddColor.tsx";
+import EditColor from "../components/admin/color/EditColor.tsx";
+import ViewSize from "../components/admin/size/ViewSize.tsx";
+import AddSize from "../components/admin/size/AddSize.tsx";
+import EditSize from "../components/admin/size/EditSize.tsx";
 
 interface RouteConfig {
     path: string;
@@ -21,51 +25,22 @@ interface RouteConfig {
 }
 
 const routes: RouteConfig[] = [
-    {
-        path: '/dashboard',
-        exact: true,
-        name: 'Dashboard',
-        component: Dashboard
-    },
-    {
-        path: '/add-category',
-        exact: true,
-        name: 'Category',
-        component: Category
-    },
-    {
-        path: '/view-category',
-        exact: true,
-        name: 'ViewCategory',
-        component: ViewCategory
-    },
-    {
-        path: '/edit-category/:id',
-        exact: true,
-        name: 'EditCategory',
-        component: EditCategory
-    },
-    {
-        path: '/profile',
-        exact: true,
-        name: 'Profile',
-        component: Profile
-    },
-    {
-        path:'/add-product',
-        exact:true,
-        name:'AddProduct',
-        component: AddProduct
-    },
-    {
-        path:'/view-product',
-        exact:true,
-        name:'ViewProduct',
-        component: ViewProduct
-    },
+    {path: '/dashboard',exact: true,name: 'Dashboard',component: Dashboard},
+    {path: '/add-category', exact: true,name: 'Category',component: Category},
+    {path: '/view-category',exact: true,name: 'ViewCategory',component: ViewCategory},
+    {path: '/edit-category/:id',exact: true,name: 'EditCategory',component: EditCategory},
+    {path: '/profile',exact: true,name: 'Profile',component: Profile},
+    {path:'/add-product',exact:true,name:'AddProduct',component: AddProduct},
+    {path:'/view-product',exact:true,name:'ViewProduct',component: ViewProduct},
     {path:'/edit-product/:id',exact:true, name:'EditProduct', component: EditProduct},
     {path:'/view-brand',exact:true, name:'ViewBrand',component: ViewBrand},
     {path:'/add-brand',exact:true, name:'AddBrand',component: AddBrand},
   {path:'/edit-brand/:id',exact:true, name:'EditBrand',component: EditBrand},
+  {path:'/view-color',exact:true,name:'ViewColor', component:ViewColor},
+  {path:'/add-color', exact:true, name:'AddColor', component:AddColor},
+  {path:'/edit-color/:id', exact:true, name:'EditColor', component:EditColor},
+  {path:'/view-size', exact:true, name:'ViewSize', component:ViewSize},
+  {path:'add-size', exact:true, name:'AddSize', component:AddSize},
+  {path:'edit-size/:id', exact:true, name:'EditSize', component:EditSize}
 ];
 export default routes;

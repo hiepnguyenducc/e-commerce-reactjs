@@ -20,7 +20,7 @@ interface Product {
     meta_title: string;
     meta_keyword: string;
     meta_description: string;
-    brand: string;
+
     selling_price: number;
     original_price: number;
     quantity: number;
@@ -62,7 +62,7 @@ function ViewProduct() {
                   type:'error',
                   content:res.data.message
                 })
-                
+
             }
         })
 
@@ -84,9 +84,9 @@ function ViewProduct() {
         {title: 'Brand', dataIndex: 'brand', key: 'brand'},
         {title: 'Selling_price',dataIndex: 'selling_price',key: 'selling_price'},
         {title: 'Original_price',dataIndex: 'original_price',key: 'original_price'},
-        {title: 'Quantity',dataIndex: 'quantity', key: 'quantity'},  
+        {title: 'Quantity',dataIndex: 'quantity', key: 'quantity'},
         {title: 'Image',dataIndex: 'image',key: 'image',render: (image: string) => <Image src={`http://127.0.0.1:8001/${image}`} width={50} />, },
-        {title: 'Featured', dataIndex: 'featured',key: 'featured'}, 
+        {title: 'Featured', dataIndex: 'featured',key: 'featured'},
         {title: 'Popular',dataIndex: 'popular',key: 'popular'},
         {title: 'Status', dataIndex: 'status',key: 'status'},
         {
@@ -107,12 +107,12 @@ function ViewProduct() {
             ),
         },
     ];
-   
+
     if(loading){
        return <Loading></Loading>
     }
     else{
-       
+
     }
     return (
         <>

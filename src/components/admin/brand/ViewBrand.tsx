@@ -72,7 +72,6 @@ function ViewBrand(){
           </Popconfirm>
         </Space>
 
-
   ),
     },
   ]
