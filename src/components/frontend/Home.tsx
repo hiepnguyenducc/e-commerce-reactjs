@@ -1,12 +1,13 @@
 
-
-import './css/bootstrap.css';
-import './css/fontawesome.css';
-
 import shome4 from '../../../public/shome4.jpg'
+import life from '../../../public/lifeestyle.jpg'
+import running from '../../../public/running.jpg'
+import football from '../../../public/football.jpg';
+import traing from '../../../public/training.jpg'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 interface Product {
     id: number;
     category_id: {
@@ -40,7 +41,6 @@ function Home() {
             }
         })
     },[]);
-
     return (
       <>
         <main>
@@ -164,7 +164,7 @@ function Home() {
             <div className="row small-gutters categories_grid">
               <div className="col-sm-12 col-md-6">
                 <a href="listing-grid-1-full.html">
-                  <img src="img/img_cat_home_1_placeholder.png" data-src="img/img_cat_home_1.jpg" alt=""
+                  <img src={life} data-src="img/img_cat_home_1.jpg" alt=""
                        className="img-fluid lazy"/>
                   <div className="wrapper">
                     <h2>Life Style</h2>
@@ -176,7 +176,7 @@ function Home() {
                 <div className="row small-gutters mt-md-0 mt-sm-2">
                   <div className="col-sm-6">
                     <a href="listing-grid-1-full.html">
-                      <img src="img/img_cat_home_2_placeholder.png" data-src="img/img_cat_home_2.jpg" alt=""
+                      <img src={running} data-src="img/img_cat_home_2.jpg" alt=""
                            className="img-fluid lazy"/>
                       <div className="wrapper">
                         <h2>Running</h2>
@@ -186,7 +186,7 @@ function Home() {
                   </div>
                   <div className="col-sm-6">
                     <a href="listing-grid-1-full.html">
-                      <img src="img/img_cat_home_2_placeholder.png" data-src="img/img_cat_home_3.jpg" alt=""
+                      <img src={football} data-src="img/img_cat_home_3.jpg" alt=""
                            className="img-fluid lazy"/>
                       <div className="wrapper">
                         <h2>Football</h2>
@@ -196,7 +196,7 @@ function Home() {
                   </div>
                   <div className="col-sm-12 mt-sm-2">
                     <a href="listing-grid-1-full.html">
-                      <img src="img/img_cat_home_4_placeholder.png" data-src="img/img_cat_home_4.jpg" alt=""
+                      <img src={traing} data-src="img/img_cat_home_4.jpg" alt=""
                            className="img-fluid lazy"/>
                       <div className="wrapper">
                         <h2>Training</h2>

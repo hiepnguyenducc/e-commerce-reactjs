@@ -79,11 +79,20 @@ import SubMenu from "antd/es/menu/SubMenu";
     },
     {
       key:'size',
-      label: 'size',
+      label: 'Size',
       icon: <SettingOutlined />,
       children:[
         {key:'13', label: (<Link to="/admin/add-color">Add Size</Link>)},
         {key:'14', label: (<Link to="/admin/view-color">View Size</Link>)}
+      ]
+    },
+    {
+      key:'collection',
+      label: 'Collection',
+      icon: <SettingOutlined />,
+      children:[
+        {key:'15', label: (<Link to="/admin/add-collection">Add Collection</Link>)},
+        {key:'16', label: (<Link to="/admin/view-collection">View Collection</Link>)}
       ]
     }
   ];

@@ -16,6 +16,9 @@ import EditColor from "../components/admin/color/EditColor.tsx";
 import ViewSize from "../components/admin/size/ViewSize.tsx";
 import AddSize from "../components/admin/size/AddSize.tsx";
 import EditSize from "../components/admin/size/EditSize.tsx";
+import AddCollection from "../components/admin/collection/AddCollection.tsx";
+import ViewCollection from "../components/admin/collection/ViewCollection.tsx";
+import EditCollection from "../components/admin/collection/EditCollection.tsx";
 
 interface RouteConfig {
     path: string;
@@ -40,7 +43,12 @@ const routes: RouteConfig[] = [
   {path:'/add-color', exact:true, name:'AddColor', component:AddColor},
   {path:'/edit-color/:id', exact:true, name:'EditColor', component:EditColor},
   {path:'/view-size', exact:true, name:'ViewSize', component:ViewSize},
-  {path:'add-size', exact:true, name:'AddSize', component:AddSize},
-  {path:'edit-size/:id', exact:true, name:'EditSize', component:EditSize}
+  {path:'/add-size', exact:true, name:'AddSize', component:AddSize},
+  {path:'/edit-size/:id', exact:true, name:'EditSize', component:EditSize},
+  {path:'/add-collection', exact:true,name:'AddCollection',component:AddCollection},
+  {path:'/view-collection', exact:true, name:'ViewCollection',component:ViewCollection},
+  {path:'/edit-collection/:id',exact:true,name:'EditCollection',component:EditCollection},
+
+
 ];
 export default routes;

@@ -115,14 +115,12 @@ function ViewCategory(){
         const allProducts = [...productUnder50, ...product50to100, ...product100to150, ...product150to200, ...productAbove200];
         setPrice(allProducts);
         setLoading(false);
-
       }
     })
     fetchProductsByCategory([]);
   }, [id]);
 
   useEffect(() => {
-
     if (selectedIds.length > 0) {
       fetchProductsByCategory(selectedIds);
     }
@@ -132,7 +130,6 @@ function ViewCategory(){
     const endpoint = selectedIds.length > 0
       ? `/api/getProductByCategory/${selectedIds.join(',')}`
       : `/api/getProductByCollection/${id}`;
-
     axios.get(endpoint)
       .then(response => {
         setProduct(response.data.product);
@@ -329,8 +326,6 @@ function ViewCategory(){
                 </ul>
               </div>
             </div>
-
-            {/*showproduct*/}
             {
 
               product.map((item) => {
@@ -342,12 +337,12 @@ function ViewCategory(){
                 const isNew = daysDifference <= 1;
                 let countdownElement;
                 if (item.sale === 1) {
-                  // Convert sale start and end dates to Date objects
+
                   const saleStartDate = new Date(item.sale_start_date);
                   const saleEndDate = new Date(item.sale_end_date);
                   const saleTimeDifference = saleEndDate.getTime() - today.getTime();
                   if (saleTimeDifference > 0) {
-                    // Convert milliseconds to hours, minutes, and seconds
+
                     let seconds = Math.floor((saleTimeDifference / 1000) % 60);
                     let minutes = Math.floor((saleTimeDifference / (1000 * 60)) % 60);
                     let hours = Math.floor((saleTimeDifference / (1000 * 60 * 60)) % 24);

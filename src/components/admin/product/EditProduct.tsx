@@ -7,17 +7,6 @@ import {message} from "antd";
 import Loading from "../../loading/loading";
 import TextArea from "antd/es/input/TextArea";
 
-function RangePicker(props: {
-  size: string,
-  onChange: any,
-  showTime: { format: string },
-  format: string,
-  disabled: boolean,
-  title: string,
-  onOk: any
-}) {
-  return null;
-}
 
 function EditProduct() {
     const [categoryList, setCategoryList] = useState<{id:string,name:string}[]>([]);
