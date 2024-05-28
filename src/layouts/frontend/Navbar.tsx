@@ -355,7 +355,7 @@ function Navbar() {
                       <div className="dropdown dropdown-access">
                         <a href="account.html" className="access_link"><span>Account</span></a>
                         <div className="dropdown-menu">
-                          <a href="account.html" className="btn_1">Sign In or Sign Up</a>
+                          <Link to="/login" className="btn_1">Sign In or Sign Up</Link>
                           <ul>
                             <li>
                               <a href="track-order.html"><i className="ti-truck"></i>Track your Order</a>
