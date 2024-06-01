@@ -63,3 +63,19 @@
 .fade-out.hidden {
   opacity: 0;
 }
+/*detail*/
+
+.btn-descrement {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  box-shadow: none;
+  font-size: 20px;
+
+
+}
+.btn-transparent:hover, .btn-transparent:focus {
+  background-color: transparent;
+  box-shadow: none;
+}
+

@@ -1,15 +1,31 @@
 import axios from "axios";
 import swal from "sweetalert";
-import {Link, Link as RouterLink} from "react-router-dom";
+import {Link, Link as RouterLink, useParams} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import '../../assests/frontend/css/style.css'
 
-import logo from '../../../public/h.jpg';
+
 import {useEffect, useState} from "react";
 
 function Navbar() {
+
   const [collection, setCollection] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [hoveredCollection, setHoveredCollection] = useState(null);
   const history = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [cart, setCart] = useState([]);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    const name = localStorage.getItem('auth_name');
+    if (token) {
+      setIsAuthenticated(true);
+      setUserName(name);
+    }
+  }, []);
   const logoutSubmit = (e) => {
     e.preventDefault();
     axios.post(`api/logout`).then(res => {
@@ -24,83 +40,59 @@ function Navbar() {
       }
     });
   }
-  useEffect(() => {
+  const { id } = useParams();
+  const fetchCollection = () => {
     axios.get('api/getCollection').then(res => {
       if (res.data.status === 200) {
         setCollection(res.data.collection);
       }
+    }).catch(error => {
+      console.error('Error fetching collections:', error);
     });
+  };
+
+  const handleMouseEnter = (id) => {
+    setHoveredCollection(id);
+    fetchCategoryByCollectionId(id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCollection(null);
+  };
+  const fetchCategoryByCollectionId = (collectionId) => {
+    axios.get(`api/getCategoryByCollection/${collectionId}`).then(res => {
+      if (res.data.status === 200) {
+        setCategory(res.data.category);
+      }
+    }).catch(error => {
+      console.error('Error fetching categories:', error);
+    });
+  };
+  console.log(category)
+
+  useEffect(() => {
+    fetchCollection();
+    axios.get(`api/show-cart`).then(res=>{
+      if(res.data.status===200){
+        setCart(res.data.cart)
+      }
+    })
+
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      fetchCategoryByCollectionId(id);
+    }
+  }, [id]);
+
   var AuthButtons = '';
-  if (!localStorage.getItem('auth_token')) {
-    AuthButtons = (
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <RouterLink className="nav-link" to="/login" >
-            Login
-          </RouterLink>
-        </li>
-        <li className="nav-item">
-          <RouterLink className="nav-link" to="/register">
-            Register
-          </RouterLink>
-        </li>
-      </ul>
-    )
-  } else {
-    AuthButtons = (
-      <li className="nav-item">
-        <button type="button" className="nav-link btn btn-danger btn-sm text-white" onClick={logoutSubmit}>Logout</button>
-      </li>
-    )
-  }
+
+  let grandTotal = 0
+  let totalItem = cart.length
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary bg-primary shadow stick-top navbar-dark">
-        <div className="container">
-          <RouterLink className="navbar-brand" to="">
-            Navbar
-          </RouterLink>
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <RouterLink className="nav-link active" aria-current="page" to="/">
-                  Home
-                </RouterLink>
-              </li>
-              <li className="nav-item">
-                <RouterLink className="nav-link active" aria-current="page" to="/about">
-                  About
-                </RouterLink>
-              </li>
-              <li className="nav-item">
-                <RouterLink className="nav-link active" aria-current="page" to="/contact">
-                  Contact
-                </RouterLink>
-              </li>
-              <li className="nav-item">
-                <RouterLink className="nav-link" to="#">
-                  Collection
-                </RouterLink>
-              </li>
-              {AuthButtons}
-
-            </ul>
-          </div>
-        </div>
-      </nav>
 
       <div id="pageWrapper">
         <header className="version_1">
@@ -111,7 +103,7 @@ function Navbar() {
               <div className="row small-gutters">
                 <div className="col-xl-3 col-lg-3 d-lg-flex align-items-center">
                   <div id="logo">
-                    <a href="index.html"><img src="h.jpg" alt="" width="100" height="35"/></a>
+                    <Link to="/"><img src="h.jpg" alt="" width="100" height="35"/></Link>
                   </div>
                 </div>
                 <nav className="col-xl-6 col-lg-7">
@@ -249,6 +241,21 @@ function Navbar() {
 									</span>
                         <div id="menu">
                           <ul>
+                            {collection.map((item)=>{
+                              return (
+                                <li key={item.id} onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
+                                  <span><Link to={`/collections/${item.id}`}>{item.name}</Link></span>
+                                    <ul style={{ display: hoveredCollection === item.id ? 'block' : 'none' }}>
+                                      {category.map((catItem) => (
+                                        <li key={catItem.id}>
+                                          <Link to={`/category/${catItem.slug}`}>{catItem.name}</Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                </li>
+                              )
+                            })
+                            }
                             <li><span><a href="#0" >Collections</a></span>
                               <ul>
                                 <li><a href="listing-grid-1-full.html">Trending</a></li>
@@ -317,31 +324,33 @@ function Navbar() {
 
                     <li>
                       <div className="dropdown dropdown-cart">
-                        <Link to="/cart" className="cart_bt submenu"><strong>2</strong></Link>
+                        <Link to="/cart" className="cart_bt submenu"><strong>{totalItem}</strong></Link>
                         <div className="dropdown-menu show-submenu">
                           <ul>
-                            <li>
-                              <a href="product-detail-1.html">
-                                <figure><img src="img/products/product_placeholder_square_small.jpg"
-                                             data-src="img/products/shoes/thumb/1.jpg" alt="" width="50" height="50"
-                                             className="lazy"/></figure>
-                                <strong><span>1x Armor Air x Fear</span>$90.00</strong>
-                              </a>
-                              <a href="#0" className="action"><i className="ti-trash"></i></a>
-                            </li>
-                            <li>
-                              <a href="product-detail-1.html">
-                                <figure><img src="img/products/product_placeholder_square_small.jpg"
-                                             data-src="img/products/shoes/thumb/2.jpg" alt="" width="50" height="50"
-                                             className="lazy"/></figure>
-                                <strong><span>1x Armor Okwahn II</span>$110.00</strong>
-                              </a>
-                              <a href="0" className="action"><i className="ti-trash"></i></a>
-                            </li>
+                            {cart.map((item)=>{
+                              const total = item.product_qty * item.product.original_price
+                              grandTotal +=total
+                              return(
+                                <>
+                                  <li>
+                                    <Link to={item.product.slug}>
+                                      <figure><img src={`http://127.0.0.1:8001/${item.product.image}`}
+                                                   data-src="img/products/shoes/thumb/1.jpg" alt="" width="50"
+                                                   height="50"
+                                                   className="lazy"/></figure>
+                                      <strong><span>{item.product_qty}x {item.product.name}</span>${item.product.original_price}</strong>
+                                    </Link>
+                                    <a href="#0" className="action"><i className="ti-trash"></i></a>
+                                  </li>
+                                </>
+                              )
+                            })
+                            }
+
                           </ul>
                           <div className="total_drop">
-                            <div className="clearfix"><strong>Total</strong><span>$200.00</span></div>
-                            <a href="cart.html" className="btn_1 outline">View Cart</a><a href="checkout.html"
+                            <div className="clearfix"><strong>Total</strong><span>${grandTotal.toFixed(2)}</span></div>
+                            <Link to="/cart" className="btn_1 outline">View Cart</Link><a href="checkout.html"
                                                                                           className="btn_1">Checkout</a>
                           </div>
                         </div>
@@ -349,27 +358,53 @@ function Navbar() {
 
                     </li>
                     <li>
-                      <a href="#0" className="wishlist"><span>Wishlist</span></a>
+                      <Link to="/wishlist" className="wishlist"><span>Wishlist</span></Link>
                     </li>
                     <li>
                       <div className="dropdown dropdown-access">
                         <a href="account.html" className="access_link"><span>Account</span></a>
                         <div className="dropdown-menu">
-                          <Link to="/login" className="btn_1">Sign In or Sign Up</Link>
-                          <ul>
-                            <li>
-                              <a href="track-order.html"><i className="ti-truck"></i>Track your Order</a>
-                            </li>
-                            <li>
-                              <a href="account.html"><i className="ti-package"></i>My Orders</a>
-                            </li>
-                            <li>
-                              <a href="account.html"><i className="ti-user"></i>My Profile</a>
-                            </li>
-                            <li>
-                              <a href="help.html"><i className="ti-help-alt"></i>Help and Faq</a>
-                            </li>
-                          </ul>
+                          {isAuthenticated ?(
+                            <>
+                              <Link to="/login" className="btn_1">{userName}</Link>
+                              <ul>
+                                <li>
+                                  <a href="track-order.html"><i className="ti-truck"></i>Track your Order</a>
+                                </li>
+                                <li>
+                                  <a href="account.html"><i className="ti-package"></i>My Orders</a>
+                                </li>
+                                <li>
+                                  <a href="account.html"><i className="ti-user"></i>My Profile</a>
+                                </li>
+                                <li>
+                                  <a href="help.html"><i className="ti-help-alt"></i>Help and Faq</a>
+                                </li>
+                                <li>
+                                  <a href="help.html" onClick={logoutSubmit}><i className="ti-layout"></i>Logout</a>
+                                </li>
+                              </ul>
+                            </>
+                          ) : (
+                            <>
+                              <Link to="/login" className="btn_1">Sign In or Sign Up</Link>
+                                <ul>
+                                  <li>
+                                    <a href="track-order.html"><i className="ti-truck"></i>Track your Order</a>
+                                  </li>
+                                  <li>
+                                    <a href="account.html"><i className="ti-package"></i>My Orders</a>
+                                  </li>
+                                  <li>
+                                    <a href="account.html"><i className="ti-user"></i>My Profile</a>
+                                  </li>
+                                  <li>
+                                    <a href="help.html"><i className="ti-help-alt"></i>Help and Faq</a>
+                                  </li>
+                                </ul>
+                              </>
+                          )
+                          }
                         </div>
                       </div>
 

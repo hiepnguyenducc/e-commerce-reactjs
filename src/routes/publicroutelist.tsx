@@ -6,7 +6,10 @@ import {FC} from "react";
 import Details from "../components/frontend/Details.tsx";
 import Cart from "../components/frontend/Cart.tsx";
 
-import ViewCotegory from "../components/frontend/collections/ViewCategory.tsx";
+import ViewCollection from "../components/frontend/collections/ViewCollection.tsx";
+import ViewCategory from "../components/frontend/ViewCategory.tsx";
+import Review from "../components/frontend/Review.tsx";
+import WishList from "../components/frontend/WishList.tsx";
 
 interface RouteConfig {
   path: string;
@@ -16,15 +19,18 @@ interface RouteConfig {
 }
 
 const publicrouteslist: RouteConfig[] = [
-  { path: '*', exact:true, name: '404', component: Page404 },
+  { path: '*', exact:true, name: '404', component: Page404},
   { path: '/', exact:true, name: 'Home', component: Home },
   { path: '/about', exact:true, name: 'About', component: About },
   { path: '/contact', exact:true, name: 'Contact', component: Contact },
-
   {path:'/cart', exact:true, name:'Cart', component:Cart},
-  {path:'/collections/:id',exact:true,name:'Collections',component:ViewCotegory},
-  // {path:'/collections/:category/:product', exact:true, name:'Details', component:Details},
-  {path:'/:slug',exact:true,name:'Details',component:Details}
+  {path:'/collections/:id',exact:true,name:'Collections',component:ViewCollection},
+  {path:'/:slug',exact:true,name:'Details',component:Details},
+  {path:'/category/:slug',exact:true,name:'Category',component:ViewCategory},
+  {path:'/category/:slug/:slug',exact:true, name:'Details',component:Details},
+  {path:'/:slug/review',exact:true,name:'Review',component:Review},
+  {path:'/wishlist',exact:true,name:'WishList',component:WishList}
+
 ];
 
 export default publicrouteslist;

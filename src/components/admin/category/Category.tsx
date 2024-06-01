@@ -38,7 +38,8 @@ function Category() {
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     // e.presist();
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    setCategory({ ...categoryInput, [e.target.name]: e.target.value });
+    setCategory({ ...categoryInput, [e.target.name]: value });
+    console.log({...categoryInput,[e.target.name]:value})
     if (e.target.name === 'status') {
       console.log('Status:', value ? '1' : '0');
     }
@@ -47,20 +48,38 @@ function Category() {
       setCategory((prevCategory) => ({ ...prevCategory, slug: slug }));
     }
   }
+  const [picture, setPicture]= useState<{image:File|null}>({image:null});
+
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setPicture({ image: e.target.files[0] });
+      console.log({ image: e.target.files[0] })
+    }
+  }
   const navigate = useNavigate();
   const submitCategory = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = {
-      slug: categoryInput.slug,
-      name: categoryInput.name,
-      description: categoryInput.description,
-      collection_id:categoryInput.collection_id,
-      status: categoryInput.status,
-      meta_title: categoryInput.meta_title,
-      meta_keyword: categoryInput.meta_keyword,
-      meta_description: categoryInput.meta_description
+    if (!picture.image) {
+      message.open({
+        type: 'error',
+        content: 'Please select an image !!'
+      })
+      return;
     }
-    axios.post(`/api/store-category`, data).then(res => {
+    const formData = new FormData();
+    formData.append('slug',categoryInput.slug);
+    formData.append('name',categoryInput.name);
+    formData.append('description',categoryInput.description);
+    formData.append('collection_id',categoryInput.collection_id);
+    formData.append('status',categoryInput.status);
+    formData.append('meta_title',categoryInput.meta_title);
+    formData.append('meta_keyword',categoryInput.meta_keyword);
+    formData.append('meta_description',categoryInput.meta_description);
+    if (picture.image) {
+      formData.append('image', picture.image);
+    }
+
+    axios.post(`/api/store-category`, formData).then(res => {
       if (res.data.status === 200) {
         message.open({
           type: 'success',
@@ -69,9 +88,14 @@ function Category() {
         navigate('/admin/view-category')
         const form_category = document.getElementById('category_form') as HTMLFormElement;
         form_category.reset();
-      } else if (res.data.status === 400) {
+      } else if (res.data.status === 422) {
+        message.open({
+          type:'error',
+          content:'All files are mandatory !!'
+        })
         setCategory({ ...categoryInput, error_list: res.data.errors });
       }
+      console.log("du lieu", formData)
     });
   }
   useEffect(() => {
@@ -98,17 +122,17 @@ function Category() {
           Add Category
           <Link to="/admin/view-category" className="btn btn-primary btn-sm float-end">View Category</Link>
         </h4>
-        <form action="" onSubmit={submitCategory} id="category_form" className="needs-validation g-3" noValidate>
+        <form action="multipart/form-data" onSubmit={submitCategory} className="needs-validation g-3" >
 
           <div className="form-group mb-3">
-            <Input type="text" name="collection_id" onChange={handleInput} value={categoryInput.collection_id}></Input>
+            <Input type="text" name="collection_id" onChange={handleInput} value={categoryInput.collection_id} placeholder="Collection"></Input>
           </div>
 
           <div className="form-group mb-3">
 
             <Typography.Title level={5}>Name</Typography.Title>
             <Input type="text" name="name" onChange={handleInput} value={categoryInput.name} size="large"
-            required placeholder="Enter Name" title={"Enter Name"}
+                   required placeholder="Enter Name" title={"Enter Name"}
             />
             {categoryInput.error_list && categoryInput.error_list.name && (
               <div className="invalid-feedback ">
@@ -184,7 +208,7 @@ function Category() {
           <div className="form-group mb-3">
             <Typography.Title level={5}>Meta Description</Typography.Title>
             <TextArea name="meta_description" onChange={handleInput} value={categoryInput.meta_description}
-                      placeholder="Enter Meta Description" required title={"Enter Meta Description"} ></TextArea>
+                      placeholder="Enter Meta Description" required title={"Enter Meta Description"}></TextArea>
 
             {categoryInput.error_list && categoryInput.error_list.meta_description && (
               <div className="invalid-feedback ">
@@ -196,12 +220,18 @@ function Category() {
             )}
 
           </div>
+          <div className="col-md-4 mb-3 form-group">
+            <label htmlFor="image">Image</label>
+            <Input type="file" name="image" onChange={handleImage}/>
+            <img src={picture.image ? URL.createObjectURL(picture.image) : ''} alt="Image" width="50px"/>
+
+          </div>
           <div className="checkbox-wrapper-33">
             <Typography.Title level={5}>Status</Typography.Title>
             {/*<p className="checkbox__textwrapper" title={"Check: Hidden, Uncheck: Visible"}>Status</p>*/}
             <label className="checkbox">
               <Input className="checkbox__trigger visuallyhidden" name="status" onChange={handleInput}
-                     value={categoryInput.status} type="checkbox" title={"Check: Hidden, Uncheck: Visible"} />
+                     value={categoryInput.status} type="checkbox" title={"Check: Hidden, Uncheck: Visible"}/>
               <span className="checkbox__symbol">
                     <svg aria-hidden="true" className="icon-checkbox" width="28px" height="28px" viewBox="0 0 28 28"
                          version="1" xmlns="http://www.w3.org/2000/svg">

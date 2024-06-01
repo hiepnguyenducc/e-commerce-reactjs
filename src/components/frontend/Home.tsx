@@ -7,6 +7,7 @@ import traing from '../../../public/training.jpg'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {Drawer,Button} from "antd";
 
 interface Product {
     id: number;
@@ -31,6 +32,15 @@ interface Product {
 }
 function Home() {
     const [viewProduct, setProduct] = useState<Product[]>([]);
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         document.title = "View Product"
@@ -288,7 +298,6 @@ function Home() {
                           ) : (
                             <span className="new_price">${item.original_price}</span>
                           )}
-
                         </div>
                         <ul>
                           <li>
@@ -297,12 +306,18 @@ function Home() {
                             </a>
                           </li>
                           <li>
-                            <a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to compare">
+                            <a  onClick={showDrawer}  className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to compare">
                               <i className="ti-control-shuffle"></i><span>Add to compare</span>
                             </a>
                           </li>
                           <li>
-                            <a href="#0" className="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to cart">
+
+                            <Drawer title="Basic Drawer" onClose={onClose} open={open} style={{ backdropFilter: 'blur(5px)' }}backdropFilter={0.5} >
+                              <p>Some contents...</p>
+                              <p>Some contents...</p>
+                              <p>Some contents...</p>
+                            </Drawer>
+                            <a  className="tooltip-1"  data-bs-toggle="tooltip" data-bs-placement="left" title="Add to cart">
                               <i className="ti-shopping-cart"></i><span>Add to cart</span>
                             </a>
                           </li>

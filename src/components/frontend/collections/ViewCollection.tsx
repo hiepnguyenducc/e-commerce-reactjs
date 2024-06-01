@@ -41,7 +41,7 @@ interface Brand{
   name:string
 }
 
-function ViewCategory(){
+function ViewCollection(){
   const [category, setCategory]= useState<Category[]>([]);
   const [color, setColor]= useState<Color[]>([]);
   const [brand, setBrand]= useState<Brand[]>([]);
@@ -437,4 +437,4 @@ function ViewCategory(){
     </>
 )
 }
-export default ViewCategory
+export default ViewCollection
