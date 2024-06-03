@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Loading from "../loading/loading.tsx";
 import '../../assests/frontend/css/style.css';
-import {message, Select, Space} from "antd";
+import {message, notification, Select, Space,Image} from "antd";
 function ChromePicker(props: { disableAlpha: boolean }) {
   return null;
 }
@@ -28,7 +28,6 @@ function Details(){
   const handleClick = (index,color) => {
     setActiveIndex(index);
     setSelected(color);
-
   };
   const {slug} = useParams();
   useEffect(() => {
@@ -85,14 +84,16 @@ function Details(){
     console.log(data)
     axios.post(`api/add-to-cart`,data).then(res=>{
     if(res.data.status===201){
-      message.open({
-        type:'success',
-        content:res.data.message
-      })
+      notification.success({
+        message: 'Success',
+        description: res.data.message,
+        placement:'bottomRight'
+      });
     }else if(res.data.status===409){
       message.open({
         type:'warning',
-        content:res.data.message
+        content:res.data.message,
+
       })
     }else if(res.data.status===401){
       message.open({
@@ -114,31 +115,35 @@ function Details(){
     }
     axios.post(`api/add-favorites`,data).then(res=>{
       if(res.data.status===200){
-        message.open({
-          type:'success',
-          content:res.data.message
-        })
+        notification.success({
+          message: 'Success',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }else if(res.data.status==422){
-        message.open({
-          type:'error',
-          content:res.data.message
-        })
-        console.log("errors")
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }else if(res.data.status==409){
-        message.open({
-          type:'warning',
-          content:res.data.message
-        })
+        notification.error({
+          message: 'Error',
+          description: res.data.errors,
+          placement:'bottomRight'
+        });
       }else if(res.data.status==404){
-        message.open({
-          type:'warning',
-          content:res.data.message
-        })
+        notification.warning({
+          message: 'Warning',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }else if(res.data.status==401){
-        message.open({
-          type:'warning',
-          content:res.data.message
-        })
+        notification.warning({
+          message: 'Warning',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }
     })
   }
@@ -199,39 +204,16 @@ if(loading){
       </div>
       <div className="row">
         <div className="col-md-6">
-          <div className="all">
-
+          <div className="all" >
+            <Image src={`http://127.0.0.1:8001/${product.image}`}/>
             <div className="slider">
-              <div className="owl-carousel owl-theme main">
-
-                <div style={style} className="item-box"></div>
-                <div style={style} className="item-box"></div>
-                <div style={style} className="item-box"></div>
-                <div style={style} className="item-box"></div>
-                <div style={style} className="item-box"></div>
-                <div style={style} className="item-box"></div>
-
-              </div>
               <div className="left nonl"><i className="ti-angle-left"></i></div>
               <div className="right"><i className="ti-angle-right"></i></div>
-            </div>
-
-            <div className="slider-two">
-              <div className="owl-carousel owl-theme thumbs">
-                <div style={style} className="item active"></div>
-                <div style={style} className="item"></div>
-                <div style={style} className="item"></div>
-                <div style={style} className="item"></div>
-                <div style={style} className="item"></div>
-                <div style={style} className="item"></div>
-              </div>
-              <div className="left-t nonl-t"></div>
-              <div className="right-t"></div>
             </div>
           </div>
         </div>
         <div className="col-md-6">
-          <div className="breadcrumbs">
+        <div className="breadcrumbs">
             <ul>
               <li><a href="#">Home</a></li>
               <li><a href="#">Category</a></li>

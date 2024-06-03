@@ -3,68 +3,103 @@ import {Link} from 'react-router-dom';
 const Footer = ()=>{
     return(
         <>
-       <aside className="footerHolder overflow-hidden bg-lightGray pt-xl-23 pb-xl-8 pt-lg-10 pb-lg-8 pt-md-12 pb-md-8 pt-10">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-12 col-sm-6 col-lg-4 mb-lg-0 mb-4">
-                                <h3 className="headingVI fwEbold text-uppercase mb-7">Contact Us</h3>
-                                <ul className="list-unstyled footerContactList mb-3">
-                                    <li className="mb-3 d-flex flex-nowrap pr-xl-20 pr-0"><span className="icon icon-place mr-3"></span> <address className="fwEbold m-0">Address: London Oxford Street, 012 United Kingdom.</address></li>
-                                    <li className="mb-3 d-flex flex-nowrap"><span className="icon icon-phone mr-3"></span> <span className="leftAlign">Phone : <a href="javascript:void(0);">(+032) 3456 7890</a></span></li>
-                                    <li className="email d-flex flex-nowrap"><span className="icon icon-email mr-2"></span> <span className="leftAlign">Email:  <a href="javascript:void(0);">Botanicalstore@gmail.com</a></span></li>
-                                </ul>
-                                <ul className="list-unstyled followSocailNetwork d-flex flex-nowrap">
-                                    <li className="fwEbold mr-xl-11 mr-md-8 mr-3">Follow  us:</li>
-                                    <li className="mr-xl-6 mr-md-5 mr-2"><a href="javascript:void(0);" className="fab fa-facebook-f"></a></li>
-                                    <li className="mr-xl-6 mr-md-5 mr-2"><a href="javascript:void(0);" className="fab fa-twitter"></a></li>
-                                    <li className="mr-xl-6 mr-md-5 mr-2"><a href="javascript:void(0);" className="fab fa-pinterest"></a></li>
-                                    <li className="mr-2"><a href="javascript:void(0);" className="fab fa-google-plus-g"></a></li>
-                                </ul>
-                            </div>
-                            <div className="col-12 col-sm-6 col-lg-3 pl-xl-14 mb-lg-0 mb-4">
-                                <h3 className="headingVI fwEbold text-uppercase mb-6">Information</h3>
-                                <ul className="list-unstyled footerNavList">
-                                    <li className="mb-1"><a href="javascript:void(0);">New Products</a></li>
-                                    <li className="mb-2"><a href="javascript:void(0);">Top Sellers</a></li>
-                                    <li className="mb-2"><a href="javascript:void(0);">Our Blog</a></li>
-                                    <li className="mb-2"><a href="javascript:void(0);">About Our Shop</a></li>
-                                    <li><a href="javascript:void(0);">Privacy policy</a></li>
-                                </ul>
-                            </div>
-                            <div className="col-12 col-sm-6 col-lg-3 pl-xl-12 mb-lg-0 mb-4">
-                                <h3 className="headingVI fwEbold text-uppercase mb-7">My Account</h3>
-                                <ul className="list-unstyled footerNavList">
-                                    <li className="mb-1"><a href="javascript:void(0);">My account</a></li>
-                                    <li className="mb-2"><a href="javascript:void(0);">Discount</a></li>
-                                    <li className="mb-2"><a href="javascript:void(0);">Orders history</a></li>
-                                    <li><a href="javascript:void(0);">Personal information</a></li>
-                                </ul>
-                            </div>
-                            <div className="col-12 col-sm-6 col-lg-2 pl-xl-18 mb-lg-0 mb-4">
-                                <h3 className="headingVI fwEbold text-uppercase mb-5">PRODUCTS</h3>
-                                <ul className="list-unstyled footerNavList">
-                                    <li className="mb-2"><a href="javascript:void(0);">Delivery</a></li>
-                                    <li className="mb-2"><a href="javascript:void(0);">Legal notice</a></li>
-                                    <li className="mb-2"><a href="javascript:void(0);">Prices drop</a></li>
-                                    <li className="mb-2"><a href="javascript:void(0);">New products</a></li>
-                                    <li><a href="javascript:void(0);">Best sales</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-                <footer className="py-4 bg-light mt-auto">
-                    <div className="container-fluid px-4">
-                        <div className="d-flex align-items-center justify-content-between small">
-                            <div className="text-muted">Copyright &copy; hiepnguyenducc 2024</div>
-                            <div>
-                                <Link to="">Privacy Policy</Link>
-                                &middot;
-                                <Link to="">Terms &amp; Conditions</Link>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+       	<footer className="revealed">
+		<div className="container">
+			<div className="row">
+				<div className="col-lg-3 col-md-6">
+					<h3 data-bs-target="#collapse_1">Quick Links</h3>
+					<div className="collapse dont-collapse-sm links" id="collapse_1">
+						<ul>
+							<li><a href="about.html">About us</a></li>
+							<li><a href="help.html">Faq</a></li>
+							<li><a href="help.html">Help</a></li>
+							<li><a href="account.html">My account</a></li>
+							<li><a href="blog.html">Blog</a></li>
+							<li><a href="contacts.html">Contacts</a></li>
+						</ul>
+					</div>
+				</div>
+				<div className="col-lg-3 col-md-6">
+					<h3 data-bs-target="#collapse_2">Categories</h3>
+					<div className="collapse dont-collapse-sm links" id="collapse_2">
+						<ul>
+							<li><a href="listing-grid-1-full.html">Clothes</a></li>
+							<li><a href="listing-grid-2-full.html">Electronics</a></li>
+							<li><a href="listing-grid-1-full.html">Furniture</a></li>
+							<li><a href="listing-grid-3.html">Glasses</a></li>
+							<li><a href="listing-grid-1-full.html">Shoes</a></li>
+							<li><a href="listing-grid-1-full.html">Watches</a></li>
+						</ul>
+					</div>
+				</div>
+				<div className="col-lg-3 col-md-6">
+						<h3 data-bs-target="#collapse_3">Contacts</h3>
+					<div className="collapse dont-collapse-sm contacts" id="collapse_3">
+						<ul>
+							<li><i className="ti-home"></i>97845 Baker st. 567<br/>Los Angeles - US</li>
+							<li><i className="ti-headphone-alt"></i>+94 423-23-221</li>
+							<li><i className="ti-email"></i><a href="#0">info@allaia.com</a></li>
+						</ul>
+					</div>
+				</div>
+				<div className="col-lg-3 col-md-6">
+						<h3 data-bs-target="#collapse_4">Keep in touch</h3>
+					<div className="collapse dont-collapse-sm" id="collapse_4">
+						<div id="newsletter">
+						    <div className="form-group">
+						        <input type="email" name="email_newsletter" id="email_newsletter" className="form-control" placeholder="Your email"/>
+						        <button type="submit" id="submit-newsletter"><i className="ti-angle-double-right"></i></button>
+						    </div>
+						</div>
+						<div className="follow_us">
+							<h5>Follow Us</h5>
+							<ul>
+								<li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/twitter_icon.svg" alt="" className="lazy"/></a></li>
+								<li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/facebook_icon.svg" alt="" className="lazy"/></a></li>
+								<li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/instagram_icon.svg" alt="" className="lazy"/></a></li>
+								<li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/youtube_icon.svg" alt="" className="lazy"/></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<hr/>
+			<div className="row add_bottom_25">
+				<div className="col-lg-6">
+					<ul className="footer-selector clearfix">
+						<li>
+							<div className="styled-select lang-selector">
+								<select>
+									<option value="English" selected>English</option>
+									<option value="French">French</option>
+									<option value="Spanish">Spanish</option>
+									<option value="Russian">Russian</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<div className="styled-select currency-selector">
+								<select>
+									<option value="US Dollars" selected>US Dollars</option>
+									<option value="Euro">Euro</option>
+								</select>
+							</div>
+						</li>
+						<li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/cards_all.svg" alt="" width="198" height="30" className="lazy"/></li>
+					</ul>
+				</div>
+				<div className="col-lg-6">
+					<ul className="additional_links">
+						<li><a href="#0">Terms and conditions</a></li>
+						<li><a href="#0">Privacy</a></li>
+						<li><span>© 2022 Allaia</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+               
         </>
     )
 }

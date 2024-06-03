@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Loading from "../loading/loading.tsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {Empty, message} from "antd";
+import {Button, Empty, message, notification} from "antd";
 interface Cart{
   user_id:number,
   product_id:number,
@@ -18,10 +18,11 @@ function Cart(){
   const navigate = useNavigate();
   if(!localStorage.getItem('auth_token')){
     navigate("/");
-    message.open({
-      type:'warning',
-      content:'Login to view'
-    })
+    notification.error({
+      message: 'Error',
+      description: "Login to view",
+      placement:'bottomRight'
+    });
   }
   let isMounted = true;
 
@@ -32,10 +33,11 @@ function Cart(){
           setCart(res.data.cart);
           sertLoading(false);
         }else if( res.data.status === 401){
-          message.open({
-            type:'warning',
-            content:res.data.message
-          })
+          notification.warning({
+            message: 'Warning',
+            description: res.data.message,
+            placement:'bottomRight'
+          });
           navigate("/login");
 
         }
@@ -48,10 +50,18 @@ function Cart(){
     try {
       const res = await axios.get(`api/delete-cart/${id}`);
       if (res.data.status === 200) {
-        message.success(res.data.message);
+        notification.success({
+          message: 'Success',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
         setCart(cart.filter(item => item.product.id !== id));
       } else if (res.data.status === 404) {
-        message.error(res.data.message);
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }
     } catch (error) {
       message.error("Đã xảy ra lỗi khi xóa sản phẩm.");
@@ -76,7 +86,7 @@ function Cart(){
             </div>
             <h1>Cart page</h1>
           </div>
-
+          {cart && cart.length > 0 ? (
           <table className="table table-striped cart-list">
             <thead>
             <tr>
@@ -98,7 +108,9 @@ function Cart(){
             </tr>
             </thead>
             <tbody>
-            {cart && cart.length > 0 ? (
+           {
+
+           
               cart.map((item) => {
                 const subtotal = item.product.original_price * item.product_qty;
                 return (
@@ -128,16 +140,33 @@ function Cart(){
                   </tr>
                 );
               })
-            ) : (
-              <Empty />
-            )}
-
-
-
+            }
             </tbody>
           </table>
-
-          <div className="row add_top_30 flex-sm-row-reverse cart_actions">
+            ) : (
+             <div className="d-flex align-items-center justify-content-center"  style={{height:'490px', }}>
+                <Empty
+            style={{transform:'scale(1.5)'}}
+              image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+              imageStyle={{ height: 60 }}
+              description={
+                <span>
+                 Your cart is empty
+                </span>
+              }
+            >
+              <Link to="/"><Button type="primary">Continue Shoping</Button></Link>
+            </Empty>
+             </div>
+               
+              
+             
+            )}
+          
+        {cart.length===0?(
+          <></>
+        ):(
+           <div className="row add_top_30 flex-sm-row-reverse cart_actions">
             <div className="col-sm-4 text-end">
               <button type="button" className="btn_1 gray">Update Cart</button>
             </div>
@@ -155,12 +184,14 @@ function Cart(){
               </div>
             </div>
           </div>
-
-
+        )
+         
+          }
         </div>
-
-
-        <div className="box_cart">
+          {cart.length===0?(
+            <div></div>
+          ):(
+            <div className="box_cart">
           <div className="container">
             <div className="row justify-content-end">
               <div className="col-xl-4 col-lg-4 col-md-6">
@@ -179,10 +210,12 @@ function Cart(){
               </div>
             </div>
           </div>
+    
         </div>
-
-
-
+          )
+          }
+        
+      
     </>
   )
 }

@@ -3,9 +3,10 @@ import swal from "sweetalert";
 import {Link, Link as RouterLink, useParams} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import '../../assests/frontend/css/style.css'
-
-
+import './css/style.css';
+import { debounce } from 'lodash';
 import {useEffect, useState} from "react";
+import { notification } from "antd";
 
 function Navbar() {
 
@@ -16,7 +17,31 @@ function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userName, setUserName] = useState('');
   const [cart, setCart] = useState([]);
-
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.get(`api/delete-cart/${id}`);
+      if (res.data.status === 200) {
+        notification.success({
+          message: 'Success',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
+        setCart(cart.filter(item => item.product.id !== id));
+      } else if (res.data.status === 404) {
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
+      }
+    } catch (error) {
+      notification.error({
+        message: 'Error',
+        description: "There was an error deleting the product",
+        placement:'bottomRight'
+      });
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
@@ -90,6 +115,33 @@ function Navbar() {
 
   let grandTotal = 0
   let totalItem = cart.length
+  const [search, setSearch] = useState();
+  const [product, setProduct] = useState([]);
+  const {name}= useParams();
+  const handleSearch = debounce(async (e) => {
+    const query = e.target.value;
+    setSearch(query);
+    console.log(query)
+    if (query) {
+      axios.get(`api/search/${query}`).then(res => {
+        if (res.data.status === 200) {
+          setProduct(res.data.products);
+        } else if (res.data.status === 404) {
+          setProduct([]);
+          notification.error({
+            message: "Error",
+            description: res.data.message,
+            placement: 'bottomRight'
+          });
+        }
+      }).catch(err => {
+        console.error(err);
+      });
+    } else {
+      setProduct([]);
+    }
+  }, 300);
+ 
   return (
     <>
 
@@ -121,88 +173,17 @@ function Navbar() {
                       <a href="#" className="open_close" id="close_in"><i className="ti-close"></i></a>
                     </div>
                     <ul>
-                      <li className="submenu">
-                        <a href="javascript:void(0);" className="show-submenu">Collections</a>
-                        <ul>
-                          {collection.map((item)=>{
-                            return (
-                              <li><Link to={`/collections/${item.id}`}>{item.name}</Link></li>
-                            )
-                          })
-                          }
-                        </ul>
+                      <li className="">
+                        <Link to="/" className="show-submenu">Home</Link>
                       </li>
-                      <li className="megamenu submenu">
-                        <a href="javascript:void(0);" className="show-submenu-mega">Pages</a>
-                        <div className="menu-wrapper">
-                          <div className="row small-gutters">
-                            <div className="col-lg-3">
-                              <h3>Listing grid</h3>
-                              <ul>
-                                <li><a href="listing-grid-1-full.html">Grid Full Width</a></li>
-                                <li><a href="listing-grid-2-full.html">Grid Full Width 2</a></li>
-                                <li><a href="listing-grid-3.html">Grid Boxed</a></li>
-                                <li><a href="listing-grid-4-sidebar-left.html">Grid Sidebar Left</a></li>
-                                <li><a href="listing-grid-5-sidebar-right.html">Grid Sidebar Right</a></li>
-                                <li><a href="listing-grid-6-sidebar-left.html">Grid Sidebar Left 2</a></li>
-                                <li><a href="listing-grid-7-sidebar-right.html">Grid Sidebar Right 2</a></li>
-                              </ul>
-                            </div>
-                            <div className="col-lg-3">
-                              <h3>Listing row &amp; Product</h3>
-                              <ul>
-                                <li><a href="listing-row-1-sidebar-left.html">Row Sidebar Left</a></li>
-                                <li><a href="listing-row-2-sidebar-right.html">Row Sidebar Right</a></li>
-                                <li><a href="listing-row-3-sidebar-left.html">Row Sidebar Left 2</a></li>
-                                <li><a href="listing-row-4-sidebar-extended.html">Row Sidebar Extended</a></li>
-                                <li><a href="product-detail-1.html">Product Large Image</a></li>
-                                <li><a href="product-detail-2.html">Product Carousel</a></li>
-                                <li><a href="product-detail-3.html">Product Sticky Info</a></li>
-                              </ul>
-                            </div>
-                            <div className="col-lg-3">
-                              <h3>Other pages</h3>
-                              <ul>
-                                <li><a href="cart.html">Cart Page</a></li>
-                                <li><a href="checkout.html">Check Out Page</a></li>
-                                <li><a href="confirm.html">Confirm Purchase Page</a></li>
-                                <li><a href="account.html">Create Account Page</a></li>
-                                <li><a href="track-order.html">Track Order</a></li>
-                                <li><a href="help.html">Help Page</a></li>
-                                <li><a href="help-2.html">Help Page 2</a></li>
-                                <li><a href="leave-review.html">Leave a Review</a></li>
-                              </ul>
-                            </div>
-                            <div className="col-lg-3 d-xl-block d-lg-block d-md-none d-sm-none d-none">
-                              <div className="banner_menu">
-                                <a href="#0">
-                                  <img
-                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                    data-src="img/banner_menu.jpg" width="400" height="550" alt=""
-                                    className="img-fluid lazy"/>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
+                      <li className="megamenu ">
+                        <Link to="#" className="show-submenu-mega">Pages</Link>
 
-                        </div>
 
                       </li>
-                      <li className="submenu">
-                        <a href="javascript:void(0);" className="show-submenu">Extra Pages</a>
-                        <ul>
-                          <li><a href="header-2.html">Header Style 2</a></li>
-                          <li><a href="header-3.html">Header Style 3</a></li>
-                          <li><a href="header-4.html">Header Style 4</a></li>
-                          <li><a href="header-5.html">Header Style 5</a></li>
-                          <li><a href="404.html">404 Page</a></li>
-                          <li><a href="sign-in-modal.html">Sign In Modal</a></li>
-                          <li><a href="contacts.html">Contact Us</a></li>
-                          <li><a href="about.html">About 1</a></li>
-                          <li><a href="about-2.html">About 2</a></li>
-                          <li><a href="modal-advertise.html">Modal Advertise</a></li>
-                          <li><a href="modal-newsletter.html">Modal Newsletter</a></li>
-                        </ul>
+                      <li className="">
+                        <Link to="/contact" className="show-submenu">Contact</Link>
+
                       </li>
                       <li>
                         <a href="blog.html">Blog</a>
@@ -241,22 +222,23 @@ function Navbar() {
 									</span>
                         <div id="menu">
                           <ul>
-                            {collection.map((item)=>{
+                            {collection.map((item) => {
                               return (
-                                <li key={item.id} onMouseEnter={() => handleMouseEnter(item.id)} onMouseLeave={handleMouseLeave}>
+                                <li key={item.id} onMouseEnter={() => handleMouseEnter(item.id)}
+                                    onMouseLeave={handleMouseLeave}>
                                   <span><Link to={`/collections/${item.id}`}>{item.name}</Link></span>
-                                    <ul style={{ display: hoveredCollection === item.id ? 'block' : 'none' }}>
-                                      {category.map((catItem) => (
-                                        <li key={catItem.id}>
-                                          <Link to={`/category/${catItem.slug}`}>{catItem.name}</Link>
-                                        </li>
-                                      ))}
-                                    </ul>
+                                  <ul style={{display: hoveredCollection === item.id ? 'block' : 'none'}}>
+                                    {category.map((catItem) => (
+                                      <li key={catItem.id}>
+                                        <Link to={`/category/${catItem.slug}`}>{catItem.name}</Link>
+                                      </li>
+                                    ))}
+                                  </ul>
                                 </li>
                               )
                             })
                             }
-                            <li><span><a href="#0" >Collections</a></span>
+                            <li><span><a href="#0">Collections</a></span>
                               <ul>
                                 <li><a href="listing-grid-1-full.html">Trending</a></li>
                                 <li><a href="listing-grid-2-full.html">Life style</a></li>
@@ -327,10 +309,10 @@ function Navbar() {
                         <Link to="/cart" className="cart_bt submenu"><strong>{totalItem}</strong></Link>
                         <div className="dropdown-menu show-submenu">
                           <ul>
-                            {cart.map((item)=>{
+                            {cart.map((item) => {
                               const total = item.product_qty * item.product.original_price
-                              grandTotal +=total
-                              return(
+                              grandTotal += total
+                              return (
                                 <>
                                   <li>
                                     <Link to={item.product.slug}>
@@ -338,9 +320,10 @@ function Navbar() {
                                                    data-src="img/products/shoes/thumb/1.jpg" alt="" width="50"
                                                    height="50"
                                                    className="lazy"/></figure>
-                                      <strong><span>{item.product_qty}x {item.product.name}</span>${item.product.original_price}</strong>
+                                      <strong><span>{item.product_qty}x {item.product.name}</span>${item.product.original_price}
+                                      </strong>
                                     </Link>
-                                    <a href="#0" className="action"><i className="ti-trash"></i></a>
+                                    <Link to={"#"} onClick={() => handleDelete(item.id)} className="action"><i className="ti-trash"></i></Link>
                                   </li>
                                 </>
                               )
@@ -364,7 +347,7 @@ function Navbar() {
                       <div className="dropdown dropdown-access">
                         <a href="account.html" className="access_link"><span>Account</span></a>
                         <div className="dropdown-menu">
-                          {isAuthenticated ?(
+                          {isAuthenticated ? (
                             <>
                               <Link to="/login" className="btn_1">{userName}</Link>
                               <ul>
@@ -388,21 +371,21 @@ function Navbar() {
                           ) : (
                             <>
                               <Link to="/login" className="btn_1">Sign In or Sign Up</Link>
-                                <ul>
-                                  <li>
-                                    <a href="track-order.html"><i className="ti-truck"></i>Track your Order</a>
-                                  </li>
-                                  <li>
-                                    <a href="account.html"><i className="ti-package"></i>My Orders</a>
-                                  </li>
-                                  <li>
-                                    <a href="account.html"><i className="ti-user"></i>My Profile</a>
-                                  </li>
-                                  <li>
-                                    <a href="help.html"><i className="ti-help-alt"></i>Help and Faq</a>
-                                  </li>
-                                </ul>
-                              </>
+                              <ul>
+                                <li>
+                                  <a href="track-order.html"><i className="ti-truck"></i>Track your Order</a>
+                                </li>
+                                <li>
+                                  <a href="account.html"><i className="ti-package"></i>My Orders</a>
+                                </li>
+                                <li>
+                                  <a href="account.html"><i className="ti-user"></i>My Profile</a>
+                                </li>
+                                <li>
+                                  <a href="help.html"><i className="ti-help-alt"></i>Help and Faq</a>
+                                </li>
+                              </ul>
+                            </>
                           )
                           }
                         </div>
@@ -410,7 +393,8 @@ function Navbar() {
 
                     </li>
                     <li>
-                      <a href="javascript:void(0);" className="btn_search_mob"><span>Search</span></a>
+                      <Link to="#" className="btn_search_mob"><span>Search</span></Link>
+
                     </li>
                     <li>
                       <a href="#menu" className="btn_cat_mob">
@@ -427,10 +411,16 @@ function Navbar() {
               </div>
 
             </div>
-            <div className="search_mob_wp">
-              <input type="text" className="form-control" placeholder="Search over 10.000 products"/>
+
+            <div className="search_mob_wp search">
+              <input type="text" className="form-control" placeholder="Search over 10.000 products" name="search" onChange={handleSearch} value={search}/>
               <input type="submit" className="btn_1 full-width" value="Search"/>
             </div>
+            <div className="dropdown-content">
+                {product.map((item, index) => (
+                  <a key={index}>{item.name}</a>
+                ))}
+      </div>
 
           </div>
 
@@ -439,7 +429,7 @@ function Navbar() {
 
 
     </>
-  );
+);
 }
 
 export default Navbar;

@@ -1,10 +1,11 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {message} from "antd";
+import {message, notification} from "antd";
 function Review (){
   const {slug} = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState([]);
   const [reviewInput, setReviewInput]= useState({
     rating:'',
@@ -54,30 +55,36 @@ function Review (){
     }
     axios.post(`api/add-comment`,formData).then(res=>{
       if(res.data.status===200){
-        message.open({
-          type:'success',
-          content:res.data.message
-        })
+        notification.success({
+          message: 'Success',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
+        navigate(-1);
       }else if(res.data.status===422){
-        message.open({
-          type:'error',
-          content:res.data.message
-        })
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }else if(res.data.status === 409){
-        message.open({
-          type:'error',
-          content:res.data.message
-        })
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }else if (res.data.status === 404){
-        message.open({
-          type:'error',
-          content:res.data.message
-        })
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }else if (res.data.status === 401){
-        message.open({
-          type:'error',
-          content:res.data.message
-        })
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement:'bottomRight'
+        });
       }
     })
   }

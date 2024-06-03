@@ -1,0 +1,40 @@
+
+    .tp-compare-table {
+        border: 1px solid #ddd;
+      }
+      
+      .tp-compare-table th,.tp-compare-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+      }
+      
+      .tp-compare-table th {
+        background-color: #f0f0f0;
+      }
+      
+      .tp-compare-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      .tp-compare-thumb {
+        width: 100px; /* Kích thước của thẻ div chứa hình ảnh */
+        height: 100px; /* Kích thước của thẻ div chứa hình ảnh */
+        overflow: hidden; /* Đảm bảo hình ảnh không vượt ra ngoài thẻ div */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ddd; /* Đường viền để thấy rõ kích thước thẻ div */
+        margin: auto; /* Căn giữa thẻ div trong td */
+      }
+      
+      .thumbnail {
+        width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng của thẻ div */
+        height: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao của thẻ div */
+        object-fit: cover; /* Đảm bảo hình ảnh luôn bao phủ toàn bộ thẻ div mà không bị méo */
+      }
+      
+      .tp-compare-product-title {
+        margin-top: 10px; /* Khoảng cách giữa hình ảnh và tiêu đề sản phẩm */
+        text-align: center; /* Căn giữa tiêu đề sản phẩm */
+      }
+      
+      
