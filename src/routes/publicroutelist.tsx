@@ -11,6 +11,7 @@ import ViewCategory from "../components/frontend/ViewCategory.tsx";
 import Review from "../components/frontend/Review.tsx";
 import WishList from "../components/frontend/WishList.tsx";
 import Compare from "../components/frontend/Compare.tsx";
+import Checkout from "../components/frontend/Checkout.tsx";
 
 interface RouteConfig {
   path: string;
@@ -32,7 +33,7 @@ const publicrouteslist: RouteConfig[] = [
   {path:'/:slug/review',exact:true,name:'Review',component:Review},
   {path:'/wishlist',exact:true,name:'WishList',component:WishList},
   {path:'/compare',exact:true,name:'Compare',component:Compare},
-
+  {path:'/checkout',exact:true,name:'Checkout',component:Checkout},
 ];
 
 export default publicrouteslist;

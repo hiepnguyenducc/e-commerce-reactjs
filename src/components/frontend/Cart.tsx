@@ -3,12 +3,14 @@ import axios from "axios";
 import Loading from "../loading/loading.tsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {Button, Empty, message, notification} from "antd";
+import Item from "antd/es/list/Item";
 interface Cart{
   user_id:number,
   product_id:number,
   product_qty:number,
   color_id:number,
-  size_id:number
+  size_id:number,
+  total_price:number,
 }
 
 function Cart(){
@@ -72,7 +74,9 @@ function Cart(){
      <Loading></Loading>
    )
  }
-
+ const shiiping = 7;
+ const totalCartPrice = cart.reduce((total, item) => total + item.total_price, 0);
+const totalWithShipping = (totalCartPrice + shiiping);
   return(
     <>
         <div className="container margin_30">
@@ -110,9 +114,10 @@ function Cart(){
             <tbody>
            {
 
-           
+
               cart.map((item) => {
                 const subtotal = item.product.original_price * item.product_qty;
+
                 return (
                   <tr key={item.id}>
                     <td>
@@ -158,11 +163,11 @@ function Cart(){
               <Link to="/"><Button type="primary">Continue Shoping</Button></Link>
             </Empty>
              </div>
-               
-              
-             
+
+
+
             )}
-          
+
         {cart.length===0?(
           <></>
         ):(
@@ -185,7 +190,7 @@ function Cart(){
             </div>
           </div>
         )
-         
+
           }
         </div>
           {cart.length===0?(
@@ -197,25 +202,32 @@ function Cart(){
               <div className="col-xl-4 col-lg-4 col-md-6">
                 <ul>
                   <li>
-                    <span>Subtotal</span> $240.00
+
+                           <span>Subtotal</span> $999.00
+
+
                   </li>
                   <li>
-                    <span>Shipping</span> $7.00
+
+                    <span>Shipping</span> ${shiiping}
                   </li>
                   <li>
-                    <span>Total</span> $247.00
+
+                           <span>Total</span> $111.00
+
+
                   </li>
                 </ul>
-                <a href="cart-2.html" className="btn_1 full-width cart">Proceed to Checkout</a>
+                <Link to={`/checkout`} className="btn_1 full-width cart">Proceed to Checkout</Link>
               </div>
             </div>
           </div>
-    
+
         </div>
           )
           }
-        
-      
+
+
     </>
   )
 }
