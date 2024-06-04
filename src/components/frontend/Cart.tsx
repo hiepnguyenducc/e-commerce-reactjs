@@ -74,9 +74,10 @@ function Cart(){
      <Loading></Loading>
    )
  }
- const shiiping = 7;
- const totalCartPrice = cart.reduce((total, item) => total + item.total_price, 0);
-const totalWithShipping = (totalCartPrice + shiiping);
+  const subtotal = cart.reduce((acc, item) => acc + parseFloat(item.total_price as string), 0);
+  const shipping = 7;
+  const total = subtotal + shipping;
+  const formattedTotal = total.toFixed(2);
   return(
     <>
         <div className="container margin_30">
@@ -137,7 +138,7 @@ const totalWithShipping = (totalCartPrice + shiiping);
                       </div>
                     </td>
                     <td>
-                      <strong>{subtotal}</strong>
+                      <strong>{subtotal}.00</strong>
                     </td>
                     <td className="options">
                       <Link to={"#"} onClick={() => handleDelete(item.id)}><i className="ti-trash"></i></Link>
@@ -203,17 +204,17 @@ const totalWithShipping = (totalCartPrice + shiiping);
                 <ul>
                   <li>
 
-                           <span>Subtotal</span> $999.00
+                           <span>Subtotal</span> ${subtotal}.00
 
 
                   </li>
                   <li>
 
-                    <span>Shipping</span> ${shiiping}
+                    <span>Shipping</span> ${shipping}.00
                   </li>
                   <li>
 
-                           <span>Total</span> $111.00
+                    <span>Total</span> ${formattedTotal}
 
 
                   </li>

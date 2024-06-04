@@ -27,6 +27,7 @@ function Checkout() {
       full_address:'',
       telephone:'',
       postal_code:'',
+    total_amount:'',
 
     });
     const handleInput=(e)=>{
@@ -34,6 +35,7 @@ function Checkout() {
       setCheckoutInput({...checkoutInput,[e.target.name]:e.target.value});
   }
   const submitOrder =(e)=>{
+    const total_price = cart.reduce((acc, item) => acc + parseFloat(item.total_price), 0);
       e.preventDefault();
       const data ={
         name:checkoutInput.name,
@@ -43,6 +45,7 @@ function Checkout() {
         full_address:checkoutInput.full_address,
         telephone:checkoutInput.telephone,
         postal_code:checkoutInput.postal_code,
+        total_amount:total_price,
       }
       axios.post(`api/place-order`,data).then(res=>{
         if(res.data.status===200){
@@ -313,7 +316,6 @@ if (loading){
                           <ul>
                             {
                               cart.map((item) => {
-
                                 return (
                                   <li className="clearfix"><em>{item.product_qty}x {item.product.name}</em>
                                     <span>${item.total_price}</span></li>

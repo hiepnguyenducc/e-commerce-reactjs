@@ -3,7 +3,7 @@ import axios from "axios";
 import Loading from "../../loading/loading.tsx";
 import {Link} from "react-router-dom";
 
-import {Button, Image, message, Popconfirm, Space, Table} from "antd";
+import {Button, Image, message, notification, Popconfirm, Space, Table} from "antd";
 interface Brand{
   id:string,
   name:string,
@@ -29,18 +29,19 @@ function ViewBrand(){
   const handleDelete = async (id:string)=>{
     axios(`api/delete-brand/${id}`).then(res=>{
       if (res.data.status===200){
-        message.open({
-          type:'success',
-          content:res.data.message
+        notification.success({
+          message:'Success',
+          description:res.data.message,
+          placement:'bottomRight'
         })
       }else if(res.data.status===404){
-        message.open({
-          type:'error',
-          content:res.data.message
+        notification.error({
+          message:'Error',
+          description:res.data.message,
+          placement:'bottomRight'
         })
       }
     })
-
   }
   if (loading){
     return <Loading></Loading>
