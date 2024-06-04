@@ -22,7 +22,7 @@ function ViewCategory() {
       setLoading(false);
       }
     })
-  })
+  },[])
 
   const handleDelete = async (id:string)=>{
     axios(`/api/delete-category/${id}`).then(res=>{
@@ -67,11 +67,9 @@ function ViewCategory() {
 
   if (loading) {
     return <Loading />;
-  } else {
-
   }
   return (
-    
+
     <div className="container-fuild px-4 mt-4 fade-in">
       <div className="card-hearder">
         <h4>
