@@ -67,9 +67,7 @@ function ViewCategory() {
 
   if (loading) {
     return <Loading />;
-  } else {
-
-  }
+  } 
   return (
     
     <div className="container-fuild px-4 mt-4 fade-in">
