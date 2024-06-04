@@ -3,19 +3,26 @@ import axios from "axios";
 import Loading from "../loading/loading.tsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {Button, Empty, message, notification} from "antd";
+import Item from "antd/es/list/Item";
 interface Cart{
   user_id:number,
   product_id:number,
   product_qty:number,
   color_id:number,
-  size_id:number
+  size_id:number,
+  total_price:number,
 }
 
 function Cart(){
 
   const [cart, setCart]= useState<Cart[]>([]);
   const [loading, sertLoading]=useState(true);
+  const [couponCode, setCouponCode] = useState('');
+  const [discountedTotal, setDiscountedTotal] = useState(0);
   const navigate = useNavigate();
+  const [applyCouponInput, setApplyCouponInput] = useState({
+    code:'',
+  })
   if(!localStorage.getItem('auth_token')){
     navigate("/");
     notification.error({
@@ -72,7 +79,67 @@ function Cart(){
      <Loading></Loading>
    )
  }
+  const subtotal = cart.reduce((acc, item) => acc + parseFloat(item.total_price as string), 0);
+  const shipping = 7;
+  const total = subtotal + shipping;
+  const formattedTotal = total.toFixed(2);
 
+  const handleInput =(e)=>{
+    setApplyCouponInput({...applyCouponInput,[e.target.name]:e.target.value})
+  }
+  const calculateDiscountedTotal = (cart, discountType, discountValue) => {
+    let total = cart.reduce((acc, item) => acc + parseFloat(item.total_price), 0);
+    if (discountType === "percentage") {
+      total *= (1 - discountValue / 100);
+    } else if (discountType === "fixed") {
+      total -= discountValue;
+    }
+    return total.toFixed(2);
+  };
+  const handleApplyCoupon = async (e) => {
+
+    const data ={
+      code:applyCouponInput.code,
+      total_price:formattedTotal,
+    }
+    axios.post(`api/apply-coupon`,data).then(res=>{
+      if(res.data.status === 200){
+        const discount = res.data.discount; // Destructure discount object
+        setDiscountedTotal(
+          calculateDiscountedTotal(cart, discount.type, discount.value)
+        );
+        const new_total_price = res.data.new_total_price;
+        console.log('new total price',new_total_price);
+
+
+      }else if(res.data.status === 422){
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement: 'bottomRight',
+        });
+      }
+      else if(res.data.status === 404){
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement: 'bottomRight',
+        });
+      }else if(res.data.status === 400){
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement: 'bottomRight',
+        });
+      }else if(res.data.status === 500){
+        notification.error({
+          message: 'Error',
+          description: res.data.message,
+          placement: 'bottomRight',
+        });
+      }
+    })
+  };
   return(
     <>
         <div className="container margin_30">
@@ -109,10 +176,8 @@ function Cart(){
             </thead>
             <tbody>
            {
-
-           
               cart.map((item) => {
-                const subtotal = item.product.original_price * item.product_qty;
+
                 return (
                   <tr key={item.id}>
                     <td>
@@ -132,7 +197,7 @@ function Cart(){
                       </div>
                     </td>
                     <td>
-                      <strong>{subtotal}</strong>
+                      <strong>{item.total_price}</strong>
                     </td>
                     <td className="options">
                       <Link to={"#"} onClick={() => handleDelete(item.id)}><i className="ti-trash"></i></Link>
@@ -158,11 +223,9 @@ function Cart(){
               <Link to="/"><Button type="primary">Continue Shoping</Button></Link>
             </Empty>
              </div>
-               
-              
-             
+
             )}
-          
+
         {cart.length===0?(
           <></>
         ):(
@@ -174,10 +237,10 @@ function Cart(){
               <div className="apply-coupon">
                 <div className="form-group">
                   <div className="row g-2">
-                    <div className="col-md-6"><input type="text" name="coupon-code" value="" placeholder="Promo code"
+                    <div className="col-md-6"><input type="text" name="code" value={applyCouponInput.code} onChange={handleInput} placeholder="Promo code"
                                                      className="form-control"/></div>
                     <div className="col-md-4">
-                      <button type="button" className="btn_1 outline">Apply Coupon</button>
+                      <button type="button" className="btn_1 outline" onClick={handleApplyCoupon}>Apply Coupon</button>
                     </div>
                   </div>
                 </div>
@@ -185,37 +248,47 @@ function Cart(){
             </div>
           </div>
         )
-         
+
           }
         </div>
           {cart.length===0?(
             <div></div>
-          ):(
+          ): (
             <div className="box_cart">
-          <div className="container">
-            <div className="row justify-content-end">
-              <div className="col-xl-4 col-lg-4 col-md-6">
-                <ul>
-                  <li>
-                    <span>Subtotal</span> $240.00
-                  </li>
-                  <li>
-                    <span>Shipping</span> $7.00
-                  </li>
-                  <li>
-                    <span>Total</span> $247.00
-                  </li>
-                </ul>
-                <a href="cart-2.html" className="btn_1 full-width cart">Proceed to Checkout</a>
+              <div className="container">
+                <div className="row justify-content-end">
+                  <div className="col-xl-4 col-lg-4 col-md-6">
+                    <ul>
+                      <li>
+                        <span>Subtotal</span> ${subtotal}.00
+                      </li>
+                      {discountedTotal > 0 && ( // Check if discountedTotal is available
+                        <li>
+                          <span>Discount</span> -${
+                          (subtotal - discountedTotal).toFixed(2)
+                        }
+                        </li>
+                      )}
+                      <li>
+                        <span>Shipping</span> ${shipping}.00
+                      </li>
+                      <li>
+                        <span>Total</span> ${
+                        discountedTotal > 0 ? discountedTotal : formattedTotal
+                      }
+                      </li>
+                    </ul>
+                    <Link to={`/checkout`} className="btn_1 full-width cart">
+                      Proceed to Checkout
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-    
-        </div>
           )
           }
-        
-      
+
+
     </>
   )
 }

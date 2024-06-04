@@ -1,34 +1,29 @@
-import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Input, notification, Typography} from "antd";
-import axios from "axios";
 import {runes} from "runes2";
 import TextArea from "antd/es/input/TextArea";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
-function AddCollection(){
-  const [loading, setLoading] = useState(true);
-  const [collectionInput, setCollectionInput] = useState({
+function AddPost (){
+  const [postInput, setPostInput] = useState({
     slug: '',
-    name: '',
-    description: '',
-    collection_id:'',
-    status: '',
-    meta_title: '',
-    meta_keyword: '',
-    meta_description: '',
+    title: '',
+    content: '',
     error_list: {} as { [key: string]: string },
+
   });
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     // e.presist();
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    setCollectionInput({ ...collectionInput, [e.target.name]: value });
-    console.log({...collectionInput,[e.target.name]:value})
+    setPostInput({ ...postInput, [e.target.name]: value });
+    console.log({...postInput,[e.target.name]:value})
     if (e.target.name === 'status') {
       console.log('Status:', value ? '1' : '0');
     }
     if (e.target.name === 'name') {
       const slug = generateSlug(value);
-      setCollectionInput((prevCategory) => ({ ...prevCategory, slug: slug }));
+      setPostInput((prevCategory) => ({ ...prevCategory, slug: slug }));
     }
   }
   const [picture, setPicture]= useState<{image:File|null}>({image:null});
@@ -40,7 +35,7 @@ function AddCollection(){
     }
   }
   const navigate = useNavigate();
-  const submitCollection = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const submitPost = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!picture.image) {
       notification.error({
@@ -51,23 +46,22 @@ function AddCollection(){
       return;
     }
     const formData = new FormData();
-    formData.append('slug',collectionInput.slug);
-    formData.append('name',collectionInput.name);
-
-    formData.append('status',collectionInput.status);
+    formData.append('slug',postInput.slug);
+    formData.append('title',postInput.title);
+    formData.append('content',postInput.content);
 
     if (picture.image) {
       formData.append('image', picture.image);
     }
 
-    axios.post(`/api/store-collection`, formData).then(res => {
+    axios.post(`/api/store-post`, formData).then(res => {
       if (res.data.status === 200) {
         notification.success({
           message:'Success',
           description:res.data.message,
           placement:'bottomRight'
         })
-        navigate('/admin/view-collection')
+        navigate('/admin/view-post')
         const form_category = document.getElementById('category_form') as HTMLFormElement;
         form_category.reset();
       } else if (res.data.status === 422) {
@@ -76,66 +70,82 @@ function AddCollection(){
           description:res.data.message,
           placement:'bottomRight'
         })
-
-        setCollectionInput({ ...collectionInput, error_list: res.data.errors });
+        setPostInput({ ...postInput, error_list: res.data.errors });
       }
       console.log("du lieu", formData)
     });
   }
   useEffect(() => {
     const generateSlug = (name) => {
-      // Đổi tất cả ký tự thành chữ thường
+
       const slug = name.toLowerCase()
-        // Loại bỏ các ký tự đặc biệt
+
         .replace(/[^\w\s]/g, '')
-        // Thay thế khoảng trắng bằng dấu gạch ngang
+
         .replace(/\s+/g, '-');
       return slug;
     };
 
-    const slug = generateSlug(collectionInput.name);
-    setCollectionInput((prevCategory) => ({ ...prevCategory, slug: slug }));
-  }, [collectionInput.name]);
-  return(
+    const slug = generateSlug(postInput.title);
+    setPostInput((prevCategory) => ({ ...prevCategory, slug: slug }));
+  }, [postInput.title]);
+  return (
     <>
       <div className="container-fluid px-4 fade-in">
         <div className="card-header float-end">
 
         </div>
         <h4 className="mt-4">
-          Add Collection
-          <Link to="/admin/view-collection" className="btn btn-primary btn-sm float-end">View Collection</Link>
+          Add Post
+          <Link to="/admin/view-post" className="btn btn-primary btn-sm float-end">View Post</Link>
         </h4>
-        <form action="multipart/form-data" onSubmit={submitCollection} className="needs-validation g-3" >
+        <form action="multipart/form-data" onSubmit={submitPost} className="needs-validation g-3" >
 
           <div className="form-group mb-3">
 
             <Typography.Title level={5}>Name</Typography.Title>
-            <Input type="text" name="name" onChange={handleInput} value={collectionInput.name} size="large"
+            <Input type="text" name="title" onChange={handleInput} value={postInput.title} size="large"
                    required placeholder="Enter Name" title={"Enter Name"}
             />
-            {collectionInput.error_list && collectionInput.error_list.name && (
+            {postInput.error_list && postInput.error_list.name && (
               <div className="invalid-feedback ">
-                <span>{collectionInput.error_list.name}</span>
+                <span>{postInput.error_list.name}</span>
               </div>
             )}
-            {collectionInput.name && (
-              <div className="text-muted float-end">{runes(collectionInput.name).length}</div>
+            {postInput.title && (
+              <div className="text-muted float-end">{runes(postInput.title).length}</div>
             )}
           </div>
+
           <div className="form-group mb-3">
             <Typography.Title level={5}>Slug</Typography.Title>
-            <Input type="text" name="slug" onChange={handleInput} value={collectionInput.slug} size="large"
+            <Input type="text" name="slug" onChange={handleInput} value={postInput.slug} size="large"
                    required placeholder="Enter Slug" title="Enter Slug"
 
             />
-            {collectionInput.error_list && collectionInput.error_list.slug && (
+            {postInput.error_list && postInput.error_list.slug && (
               <div className="invalid-feedback ">
-                <span>{collectionInput.error_list.slug}</span>
+                <span>{postInput.error_list.slug}</span>
               </div>
             )}
-            {collectionInput.slug && (
-              <div className="text-muted float-end">{runes(collectionInput.slug).length}</div>
+            {postInput.slug && (
+              <div className="text-muted float-end">{runes(postInput.slug).length}</div>
+            )}
+          </div>
+
+
+          <div className="form-group mb-3">
+            <Typography.Title level={5}>Content</Typography.Title>
+            <TextArea name="content" onChange={handleInput} value={postInput.content} required
+                      placeholder="Enter content" title={"Enter Content"}
+            />
+            {postInput.error_list && postInput.error_list.content && (
+              <div className="invalid-feedback ">
+                <span>{postInput.error_list.content}</span>
+              </div>
+            )}
+            {postInput.content && (
+              <div className="text-muted float-end">{runes(postInput.content).length}</div>
             )}
           </div>
 
@@ -145,21 +155,8 @@ function AddCollection(){
             <img src={picture.image ? URL.createObjectURL(picture.image) : ''} alt="Image" width="50px"/>
 
           </div>
-          <div className="checkbox-wrapper-33">
-            <Typography.Title level={5}>Status</Typography.Title>
-            {/*<p className="checkbox__textwrapper" title={"Check: Hidden, Uncheck: Visible"}>Status</p>*/}
-            <label className="checkbox">
-              <Input className="checkbox__trigger visuallyhidden" name="status" onChange={handleInput}
-                     value={collectionInput.status} type="checkbox" title={"Check: Hidden, Uncheck: Visible"}/>
-              <span className="checkbox__symbol">
-                    <svg aria-hidden="true" className="icon-checkbox" width="28px" height="28px" viewBox="0 0 28 28"
-                         version="1" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 14l8 7L24 7"></path>
-                    </svg>
-                  </span>
-            </label>
-          </div>
 
+          {/* button */}
           <button type="submit" className="btn btn-primary px-4 float-end">Add</button>
 
         </form>
@@ -167,4 +164,4 @@ function AddCollection(){
     </>
   )
 }
-export default AddCollection
+export default AddPost

@@ -1,6 +1,6 @@
 import axios from "axios";
 import swal from "sweetalert";
-import {Link, Link as RouterLink, useParams} from "react-router-dom";
+import {Link,  useParams} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import '../../assests/frontend/css/style.css'
 import './css/style.css';
@@ -102,8 +102,8 @@ function Navbar() {
         setCart(res.data.cart)
       }
     })
-
   }, []);
+
 
   useEffect(() => {
     if (id) {
@@ -141,7 +141,7 @@ function Navbar() {
       setProduct([]);
     }
   }, 300);
- 
+
   return (
     <>
 
@@ -169,7 +169,7 @@ function Navbar() {
 
                   <div className="main-menu">
                     <div id="header_menu">
-                      <a href="index.html"><img src="img/logo_black.svg" alt="" width="100" height="35"/></a>
+                      <Link to="/"><img src="img/logo_black.svg" alt="" width="100" height="35"/></Link>
                       <a href="#" className="open_close" id="close_in"><i className="ti-close"></i></a>
                     </div>
                     <ul>
@@ -186,7 +186,7 @@ function Navbar() {
 
                       </li>
                       <li>
-                        <a href="blog.html">Blog</a>
+                        <Link to="/blog">Blog</Link>
                       </li>
                       <li>
                         <a href="#0">Buy Template</a>
@@ -309,27 +309,25 @@ function Navbar() {
                         <Link to="/cart" className="cart_bt submenu"><strong>{totalItem}</strong></Link>
                         <div className="dropdown-menu show-submenu">
                           <ul>
-                            {cart.map((item) => {
-                              const total = item.product_qty * item.product.original_price
-                              grandTotal += total
-                              return (
-                                <>
-                                  <li>
-                                    <Link to={item.product.slug}>
-                                      <figure><img src={`http://127.0.0.1:8001/${item.product.image}`}
-                                                   data-src="img/products/shoes/thumb/1.jpg" alt="" width="50"
-                                                   height="50"
-                                                   className="lazy"/></figure>
-                                      <strong><span>{item.product_qty}x {item.product.name}</span>${item.product.original_price}
-                                      </strong>
-                                    </Link>
-                                    <Link to={"#"} onClick={() => handleDelete(item.id)} className="action"><i className="ti-trash"></i></Link>
-                                  </li>
-                                </>
-                              )
-                            })
+                            {
+                                cart.map((item) => {
+                                    return (
+                                      <>
+                                        <li key={item.id}>
+                                          <Link to={item.product.slug}>
+                                            <figure><img src={`http://127.0.0.1:8001/${item.product.image}`}
+                                                         data-src="img/products/shoes/thumb/1.jpg" alt="" width="50"
+                                                         height="50"
+                                                         className="lazy"/></figure>
+                                            <strong><span>{item.product_qty}x {item.product.name}</span>${item.product.original_price}
+                                            </strong>
+                                          </Link>
+                                          <Link to={"#"} onClick={() => handleDelete(item.id)} className="action"><i className="ti-trash"></i></Link>
+                                        </li>
+                                      </>
+                                    )
+                              })
                             }
-
                           </ul>
                           <div className="total_drop">
                             <div className="clearfix"><strong>Total</strong><span>${grandTotal.toFixed(2)}</span></div>

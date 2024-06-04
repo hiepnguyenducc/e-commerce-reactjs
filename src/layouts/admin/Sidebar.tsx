@@ -94,6 +94,41 @@ import SubMenu from "antd/es/menu/SubMenu";
         {key:'15', label: (<Link to="/admin/add-collection">Add Collection</Link>)},
         {key:'16', label: (<Link to="/admin/view-collection">View Collection</Link>)}
       ]
+    },
+    {
+      key:'coupon',
+      label: 'Coupon',
+      icon: <SettingOutlined />,
+      children:[
+        {key:'17', label: (<Link to="/admin/add-coupon">Add Coupon</Link>)},
+        {key:'18', label: (<Link to="/admin/view-coupon">View Coupon</Link>)}
+      ]
+    },
+    {
+      key:'slider',
+      label: 'Slider',
+      icon: <SettingOutlined />,
+      children:[
+        {key:'19', label: (<Link to="/admin/add-slider">Add Slider</Link>)},
+        {key:'20', label: (<Link to="/admin/view-slider">View Slider</Link>)}
+      ]
+    },
+    {
+      key:'post',
+      label: 'Post',
+      icon: <SettingOutlined />,
+      children:[
+        {key:'21', label: (<Link to="/admin/add-post">Add Post</Link>)},
+        {key:'22', label: (<Link to="/admin/view-post">View Post</Link>)}
+      ]
+    },
+    {
+      key:'Order',
+      label: 'Order',
+      icon: <SettingOutlined />,
+      children:[
+        {key:'23', label: (<Link to="/admin/view-order">View Order</Link>)}
+      ]
     }
   ];
 

@@ -87,12 +87,13 @@ function AddProduct() {
     })
   }, []);
   useEffect(() => {
-    axios.get(`/api/all-color`).then(res=>{
+    axios.get(`/api/view-color`).then(res=>{
       if(res.data.status===200){
         setColorList(res.data.color)
-        console.log(colorList)
+        
       }
     })
+    console.log("color",colorList)
   }, []);
   useEffect(() => {
     axios.get(`/api/all-size`).then(res=>{
@@ -274,7 +275,6 @@ function AddProduct() {
                         <br/>
                         <Space wrap>
                           <Select
-
                             name="color_id"
                             onChange={value => setProductInput({...productInput, color_id: value})}
                             value={productInput.color_id}
@@ -285,8 +285,7 @@ function AddProduct() {
                               <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
                             ))}
                           </Select>
-                          <Input name="color_quantity"></Input>
-
+                        
                         </Space>
 
                       </div>

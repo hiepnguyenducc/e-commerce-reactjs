@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import Loading from "../../loading/loading";
-import {message} from "antd";
+import {message, notification} from "antd";
 
 function EditCategory() {
     const navigate = useNavigate();
@@ -38,25 +38,27 @@ function EditCategory() {
         const data = categoryInput;
         axios.put(`api/update-category/${category_id}`,data).then(res=>{
             if(res.data.status === 200){
-                message.open({
-                  type:'success',
-                  content:res.data.message,
-                })
+              notification.success({
+                message:'Success',
+                description:res.data.message,
+                placement:'bottomRight'
+              })
                 setError([]);
                 navigate('/admin/view-category')
             }
             else if (res.data.status === 422){
-                swal("All fields are mandetory","","error");
-                message.open({
-                  type:'error',
-                  content:res.data.message
-                })
+              notification.error({
+                message:'Error',
+                description:res.data.message,
+                placement:'bottomRight'
+              })
                 setError(res.data.errors);
             }
             else if(res.data.status === 404){
-              message.open({
-                type:'error',
-                content:res.data.message
+              notification.error({
+                message:'Error',
+                description:res.data.message,
+                placement:'bottomRight'
               })
                 navigate('admin/view-category');
             }

@@ -160,7 +160,6 @@ function EditProduct() {
     if (picture.image) {
         formData.append('image', picture.image);
     }
-
     axios.post(`/api/update-product/${product_id}`,formData).then(res => {
         if(res.data.status === 200){
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import {Button, Input, message} from "antd";
+import {Button, Input, message, notification} from "antd";
 import Loading from "../../loading/loading.tsx";
 
 function EditBrand(){
@@ -61,22 +61,25 @@ function EditBrand(){
     }
     axios.post(`api/update-brand/${brand_id}`,formData).then(res=>{
       if(res.data.status===200){
-        message.open({
-          type:'success',
-          content:res.data.message
+        notification.success({
+          message:'Success',
+          description:res.data.message,
+          placement:'bottomRight'
         })
         setError([]);
         navigate('/admin/view-brand')
       }else if((res.data.status===422)){
-        message.open({
-          type:"error",
-          content:res.data.message
+        notification.error({
+          message:'Error',
+          description:res.data.message,
+          placement:'bottomRight'
         })
       console.log("data",formData);
       }else if(res.data.status === 404){
-        message.open({
-          type:'error',
-          content:res.data.message
+        notification.error({
+          message:'Error',
+          description:res.data.message,
+          placement:'bottomRight'
         })
         navigate('/admin/view-brand')
       }

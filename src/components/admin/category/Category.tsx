@@ -5,7 +5,7 @@ import axios from 'axios';
 import { runes } from 'runes2';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import {Input, message, Typography} from 'antd';
+import {Input, message, notification, Typography} from 'antd';
 import TextArea from "antd/es/input/TextArea";
 
 
@@ -60,9 +60,10 @@ function Category() {
   const submitCategory = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!picture.image) {
-      message.open({
-        type: 'error',
-        content: 'Please select an image !!'
+      notification.error({
+        message:'Error',
+        description:"Please select an image",
+        placement:'bottomRight'
       })
       return;
     }
@@ -81,17 +82,19 @@ function Category() {
 
     axios.post(`/api/store-category`, formData).then(res => {
       if (res.data.status === 200) {
-        message.open({
-          type: 'success',
-          content: res.data.message,
-        });
+        notification.success({
+          message:'Success',
+          description:res.data.message,
+          placement:'bottomRight'
+        })
         navigate('/admin/view-category')
         const form_category = document.getElementById('category_form') as HTMLFormElement;
         form_category.reset();
       } else if (res.data.status === 422) {
-        message.open({
-          type:'error',
-          content:'All files are mandatory !!'
+        notification.error({
+          message:'Error',
+          description:res.data.message,
+          placement:'bottomRight'
         })
         setCategory({ ...categoryInput, error_list: res.data.errors });
       }

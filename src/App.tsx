@@ -28,6 +28,7 @@ import './assests/frontend/css/bootstrap.min.css';
 import './assests/frontend/css/bootstrap.css';
 import'./components/frontend/css/Compare.css'
 
+
 import './assests/frontend/sass/_mixin.scss'
 import './assests/frontend/sass/_variables.scss'
 import './assests/frontend/sass/account.scss'

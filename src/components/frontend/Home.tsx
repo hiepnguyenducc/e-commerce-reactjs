@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useParams } from 'react-router-dom';
 import { Drawer, Slider, notification, Space, Select } from "antd";
 import Loading from '../loading/loading';
+import NaoCho from "./NaoCho.tsx";
 function ChromePicker(props: { disableAlpha: boolean }) {
   return null;
 }
@@ -161,7 +162,7 @@ function Home() {
     }
 
   }
-  
+
   const addToWishList = (e,id)=>{
     e.preventDefault();
     const data ={
@@ -205,7 +206,7 @@ function Home() {
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     setEmailInput({ ...emailInput, [e.target.name]: value });
-   
+
 }
   const submitEmail =(e)=>{
     e.preventDefault();
@@ -219,7 +220,7 @@ function Home() {
           description:res.data.message,
           placement:'bottomRight'
         })
-       
+
       }else if(res.data.status===401){
         notification.warning({
           message:'Warning',
@@ -228,7 +229,7 @@ function Home() {
         })
       }
     }) }
-  
+
   return (
     <>
       <main>
@@ -351,6 +352,7 @@ function Home() {
         </div>
 
         <div className="feat">
+
           <div className="container">
             <ul>
               <li>

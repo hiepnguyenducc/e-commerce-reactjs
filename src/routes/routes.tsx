@@ -19,6 +19,16 @@ import EditSize from "../components/admin/size/EditSize.tsx";
 import AddCollection from "../components/admin/collection/AddCollection.tsx";
 import ViewCollection from "../components/admin/collection/ViewCollection.tsx";
 import EditCollection from "../components/admin/collection/EditCollection.tsx";
+import EditCoupon from "../components/admin/coupon/EditCoupon.tsx";
+import AddCoupon from "../components/admin/coupon/AddCoupon.tsx";
+import ViewCoupon from "../components/admin/coupon/ViewCoupon.tsx";
+import AddSlider from "../components/admin/slider/AddSlider.tsx";
+import ViewSlider from "../components/admin/slider/ViewSlider.tsx";
+import EditSlider from "../components/admin/slider/EditSlider.tsx";
+import AddPost from "../components/admin/post/AddPost.tsx";
+import ViewPost from "../components/admin/post/ViewPost.tsx";
+import EditPost from "../components/admin/post/EditPost.tsx";
+import ViewOrder from "../components/admin/order/ViewOrder.tsx";
 
 interface RouteConfig {
     path: string;
@@ -48,6 +58,20 @@ const routes: RouteConfig[] = [
   {path:'/add-collection', exact:true,name:'AddCollection',component:AddCollection},
   {path:'/view-collection', exact:true, name:'ViewCollection',component:ViewCollection},
   {path:'/edit-collection/:id',exact:true,name:'EditCollection',component:EditCollection},
+
+  {path:'/add-coupon', exact:true,name:'AddCoupon',component:AddCoupon},
+  {path:'/view-coupon', exact:true, name:'ViewCoupon',component:ViewCoupon},
+  {path:'/edit-coupon/:id',exact:true,name:'EditCoupon',component:EditCoupon},
+
+  {path:'/add-slider', exact:true,name:'AddSlider',component:AddSlider},
+  {path:'/view-slider', exact:true, name:'ViewSlider',component:ViewSlider},
+  {path:'/edit-slider/:id',exact:true,name:'EditSlider',component:EditSlider},
+
+  {path:'/add-post', exact:true,name:'AddPost',component:AddPost},
+  {path:'/view-post', exact:true, name:'ViewPost',component:ViewPost},
+  {path:'/edit-post/:id',exact:true,name:'EditPost',component:EditPost},
+
+  {path:'/view-order', exact:true, name:'ViewOrder',component:ViewOrder},
 
 
 ];
